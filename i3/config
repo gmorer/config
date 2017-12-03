@@ -165,7 +165,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # lock screen
 bindsym $mod+p exec "~/bin/lock.sh"
-exec xautolock -time 2 -locker '~/bin/lock.sh' &
+exec xautolock -corners ---- -time 1 -locker '~/bin/lock.sh' &
 
 set_from_resource       $background     background
 set_from_resource       $foreground     foreground
