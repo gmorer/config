@@ -160,8 +160,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- #dec
 bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle # mute sound
 
 # brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # lock screen
 bindsym $mod+Delete exec "~/bin/lock.sh"
