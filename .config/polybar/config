@@ -21,8 +21,8 @@ darkgray = #5C6370
 white = #FFFFFF
 
 [vars]
-color-bg-0 = #550f1419
-color-bg-1 = #550f1419
+color-bg-0 = #00000000
+color-bg-1 = #00000000
 color-focused = #ffffff
 color-occupied-muted = #aaffffff
 color-empty = #33ffffff
@@ -62,13 +62,13 @@ module-margin-right = ${vars.padding-1}
 
 ;--------------------------------------------------
 
-font-0 = xos4terminus:size=17:weight=normal;1
-font-1 = FontAwesome5Free:style=Solid:size=13:weight=light;3
-font-2 = FontAwesome5Brands:style=Solid:size=13:weight=light;3
+font-0 = xos4terminus:size=15:weight=normal;1
+font-1 = FontAwesome5Free:style=Solid:size=11:weight=light;3
+font-2 = FontAwesome5Brands:style=Solid:size=11:weight=light;3
 
 modules-left = i3
 modules-center = xwindow 
-modules-right = volume wireless-network calendar clock battery
+modules-right = filesystem volume wireless-network calendar clock battery
 
 tray-position = right
 tray-padding = 9
@@ -196,6 +196,11 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+mount-1 = /home
+label-mounted = %mountpoint% %free%
 
 [global/wm]
 margin-top = 5
