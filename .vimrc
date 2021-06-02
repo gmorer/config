@@ -1,9 +1,0 @@
-set ru
-set nu
-syn on
-set hlsearch
-set autoindent
-set smartindent
-set tabstop=4
-set shiftwidth=4
-set background=dark
