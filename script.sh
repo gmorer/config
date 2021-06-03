@@ -8,7 +8,7 @@ ARGV=$@
 LOG_FILE="./logs.err"
 rm -rf ${LOG_FILE}
 
-MODULES=`ls -1 | grep -v ${NAME}`
+MODULES=`find -maxdepth 1 -type d -name '[^.]*' | sed 's/^..//'`
 COMMANDS=`ls ${MODULES} ~ -1 | grep -v : | grep -v "/"| grep -E \*.sh$ | sed 's/.sh$//' | sort | uniq`
 
 RED='\033[0;31m'
@@ -42,7 +42,7 @@ function usage {
 	echo ""
 	echo "${BOLD}Modules:${NORMAL}"
 	for m in ${MODULES}; do
-		echo -n "${m}	"
+		echo -n "${m}                    "  | head -c 20
 		DESC=`cat ${m}/description.txt 2>&-`
 		if [[ $? -eq 0 ]]; then
 			echo ${DESC}
