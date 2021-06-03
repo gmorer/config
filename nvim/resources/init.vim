@@ -25,7 +25,6 @@ let g:nvim_tree_auto_open = 1
 let g:nvim_tree_indent_markers = 1
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " --- Dependencies ---
 Plug 'xolox/vim-misc'
@@ -48,13 +47,13 @@ Plug 'tpope/vim-fugitive'
 " --- Find file ---
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v(.git|node_modules|target)$',
+    \ 'dir':  '\v(.git|node_modules|target|vendor)$',
     \ 'file': '\v\.(exe|so|dll|a|o)$',
     \ }
 
 " --- Jump ---
 Plug 'xolox/vim-easytags'
-let g:easytags_opts = ['--options=/home/tet/.config/ctags/config', '--fields=+l']
+let g:easytags_opts = ["--options=$HOME/.config/ctags/ctagsrc", '--fields=+l']
 
 " --- completion ---
 Plug 'valloric/youcompleteme'

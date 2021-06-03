@@ -2,7 +2,10 @@
 
 echo "Depend on go rust clang, nice nerd fonts..."
 
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+mkdir -p ${HOME}/bin \
+&& curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o ${HOME}/bin/nvim \
+&& chmod +x ${HOME}/bin/nvim \
+&& sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' \
 && mkdir -p ${HOME}/.config/nvim \
 && mkdir -p ${HOME}/.config/ctags \
