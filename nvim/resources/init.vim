@@ -51,11 +51,7 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll|a|o)$',
     \ }
 
-" --- Jump ---
-Plug 'xolox/vim-easytags'
-let g:easytags_opts = ["--options=$HOME/.config/ctags/ctagsrc", '--fields=+l']
-
-" --- completion ---
+" --- LSP ---
 Plug 'valloric/youcompleteme'
 let g:ycm_complete_in_strings = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -63,6 +59,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+nnoremap <C-]> :YcmCompleter GoTo<CR>
+nnoremap <C-t> <C-o>
 
 " --- Color sheme ---
 Plug 'morhetz/gruvbox'
