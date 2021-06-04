@@ -69,4 +69,7 @@ set background=dark
 call plug#end()
 
 colorscheme gruvbox
+set list
+set listchars=eol:⏎,tab:\ \ ┊,trail:●,nbsp:⎵,extends:…,precedes:…,space:·
+set tabstop=4
 nnoremap U <C-R> " Dunno it was not present anymore
