@@ -67,6 +67,7 @@ local function on_attach(client)
 end
 
 local servers = {
+  omnisharp = { cmd = { '/home/guilhem/sources/omnisharp-linux-x64/run', '--languageserver' , '--hostPID', tostring(vim.fn.getpid()) } },
   bashls = {},
   clangd = {
     cmd = {
@@ -91,6 +92,7 @@ local servers = {
   jsonls = {cmd = {'json-languageserver', '--stdio'}},
   julials = {settings = {julia = {format = {indent = 2}}}},
   ocamllsp = {},
+  gopls = {},
   pyright = {settings = {python = {formatting = {provider = 'yapf'}}}},
   rust_analyzer = {},
   sumneko_lua = function()
