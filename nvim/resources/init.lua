@@ -1,6 +1,10 @@
 -- Load the plugins
 require("plugins")
 
+if require "first_load"() then
+  return
+end
+
 -- Load status line
 require("statusline").status()
 
@@ -10,12 +14,11 @@ require("lsp")
 -- Load telescope
 require("telescoop")
 
--- load Theme
-require("config.theme")
-
 -- load Tree conf
 require("config.tree")
 
 -- load the bindings
 require("config.bindings")
 
+-- load Theme
+require("config.theme")

@@ -1,3 +1,7 @@
+local has_lsp, lsp_status = pcall(require, "lspconfig")
+  if not has_lsp then
+     return {status = function () end}
+end
 local lsp_status = require('lsp-status')
 local devicons = require('nvim-web-devicons')
 
@@ -179,5 +183,7 @@ local function status(win_num)
 end
 
 local function update() for i = 1, vim.fn.winnr('$') do vim.wo.statusline = status(i) end end
+
+status()
 
 return {status = status, update = update}
