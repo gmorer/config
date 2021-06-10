@@ -184,6 +184,4 @@ end
 
 local function update() for i = 1, vim.fn.winnr('$') do vim.wo.statusline = status(i) end end
 
-status()
-
 return {status = status, update = update}
