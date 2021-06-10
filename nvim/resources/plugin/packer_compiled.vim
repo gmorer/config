@@ -76,14 +76,22 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
+  ["git-messenger.vim"] = {
+    loaded = true,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/git-messenger.vim"
+  },
   ["gitsigns.nvim"] = {
     loaded = false,
     needs_bufread = false,
     path = "/home/tet/.local/share/nvim/site/pack/packer/opt/gitsigns.nvim"
   },
-  ["gruvbox-material"] = {
+  gruvbox = {
     loaded = true,
-    path = "/home/tet/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/gruvbox"
+  },
+  indentLine = {
+    loaded = true,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/indentLine"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
@@ -109,6 +117,10 @@ _G.packer_plugins = {
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -156,13 +168,9 @@ _G.packer_plugins = {
     needs_bufread = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/opt/vim-fugitive"
   },
-  ["vim-substrata"] = {
+  ["vim-visual-multi"] = {
     loaded = true,
-    path = "/home/tet/.local/share/nvim/site/pack/packer/start/vim-substrata"
-  },
-  warlock = {
-    loaded = true,
-    path = "/home/tet/.local/share/nvim/site/pack/packer/start/warlock"
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/vim-visual-multi"
   }
 }
 
@@ -173,12 +181,12 @@ time("Setup for gitsigns.nvim", false)
 
 -- Command lazy-loads
 time("Defining lazy-load commands", true)
+vim.cmd [[command! -nargs=* -range -bang -complete=file Git lua require("packer.load")({'vim-fugitive'}, { cmd = "Git", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gstatus lua require("packer.load")({'vim-fugitive'}, { cmd = "Gstatus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gblame lua require("packer.load")({'vim-fugitive'}, { cmd = "Gblame", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gpush lua require("packer.load")({'vim-fugitive'}, { cmd = "Gpush", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Gpull lua require("packer.load")({'vim-fugitive'}, { cmd = "Gpull", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 vim.cmd [[command! -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
-vim.cmd [[command! -nargs=* -range -bang -complete=file Git lua require("packer.load")({'vim-fugitive'}, { cmd = "Git", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 time("Defining lazy-load commands", false)
 
 vim.cmd [[augroup packer_load_aucmds]]

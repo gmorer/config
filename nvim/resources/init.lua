@@ -1,9 +1,21 @@
- -- Load the plugins
+-- Load the plugins
 require("plugins")
- -- Load status line
+
+-- Load status line
 require("statusline").status()
- -- Load the LSP conf
+
+-- Load the LSP conf
 require("lsp")
- -- Load telescope
+
+-- Load telescope
 require("telescoop")
+
+-- load Theme
+require("config.theme")
+
+-- load Tree conf
+require("config.tree")
+
+-- load the bindings
+require("config.bindings")
 

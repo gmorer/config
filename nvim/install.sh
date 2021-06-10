@@ -8,6 +8,5 @@ mkdir -p ${HOME}/bin \
 && mkdir -p ${HOME}/.local/share/nvim/site/pack/packer/start/ \
 && git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim \
 && rm -rf ${HOME}/.config/nvim \
-&& ln -fs  ${PWD}/resources ${HOME}/.config/nvim
-# && nvim --headless +PlugInstall +qall \
-# && ${HOME}/.local/share/nvim/plugged/youcompleteme/install.py --all \
+&& ln -fs  ${PWD}/resources ${HOME}/.config/nvim \
+&& nvim --headless +PackerInstall +qall

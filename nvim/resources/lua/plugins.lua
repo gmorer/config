@@ -35,16 +35,22 @@ return require('packer').startup(function()
     }, {'TimUntersberger/neogit', opt = true}
   }
 
+  -- GitMessengeru
+  use 'rhysd/git-messenger.vim'
+
+  -- MultiCursor
+  use 'mg979/vim-visual-multi'
+
   -- Pretty symbols
   use 'kyazdani42/nvim-web-devicons'
 
   -- Color scheme
-  use 'hardselius/warlock'
-  use 'arzg/vim-substrata'
-  use 'sainnhe/gruvbox-material'
-  vim.opt.termguicolors = true
-  vim.opt.background = 'dark'
-  vim.api.nvim_set_var('gruvbox_material_palette', 'original')
-  vim.cmd [[colorscheme gruvbox-material]]
+  use 'morhetz/gruvbox'
+
+  -- indent line
+  use 'Yggdroot/indentLine'
+
+  -- Tree
+  use 'kyazdani42/nvim-tree.lua'
 
 end)
