@@ -5,11 +5,11 @@ if require "first_load"() then
   return
 end
 
--- Load status line
-require("statusline").status()
-
 -- Load the LSP conf
 require("lsp")
+
+-- Load status line
+require("statusline")
 
 -- Load telescope
 require("telescoop")

@@ -17,13 +17,27 @@ return require('packer').startup(function()
 
   -- Completion and linting
   use {
-    'onsails/lspkind-nvim', 'neovim/nvim-lspconfig', 'nvim-lua/lsp-status.nvim',
-    'glepnir/lspsaga.nvim', 'folke/trouble.nvim'
+    'onsails/lspkind-nvim', 'neovim/nvim-lspconfig',
+    'nvim-lua/lsp-status.nvim'
   }
+
+  use {
+    "folke/lsp-trouble.nvim",
+    config = function()
+    -- Can use P to toggle auto movement
+      require("trouble").setup {
+        auto_preview = false,
+        auto_fold = true,
+      }
+    end,
+  }
+
+  use 'glepnir/lspsaga.nvim'
   use 'folke/lua-dev.nvim'
 
   use 'nvim-lua/completion-nvim'
 
+  use 'nvim-lua/lsp_extensions.nvim'
 
   -- Git
   use {
@@ -49,6 +63,12 @@ return require('packer').startup(function()
 
   -- indent line
   use 'Yggdroot/indentLine'
+
+  -- Temporary
+  use 'tjdevries/astronauta.nvim'
+
+  -- statius line
+  use 'tjdevries/express_line.nvim'
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'

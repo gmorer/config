@@ -1,12 +1,42 @@
 local lspconfig = require('lspconfig')
-local trouble = require('trouble')
 local lsp_status = require('lsp-status')
 local saga = require('lspsaga')
-local lspkind = require('lspkind')
 local completion = require('completion')
 local lsp = vim.lsp
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local cmd = vim.cmd
+
+_ = require("lspkind").init()
+require("vim.lsp.log").set_level "debug"
+require "handlers"
+
+-- Status part
+lsp_status.config {
+  select_symbol = function(cursor_pos, symbol)
+    if symbol.valueRange then
+      local value_range = {
+        ["start"] = {
+          character = 0,
+          line = vim.fn.byte2line(symbol.valueRange[1]),
+        },
+        ["end"] = {
+          character = 0,
+          line = vim.fn.byte2line(symbol.valueRange[2]),
+        },
+      }
+      return require("lsp-status.util").in_range(cursor_pos, value_range)
+    end
+  end,
+
+  indicator_errors = "",
+  indicator_warnings = "",
+  indicator_info = "🛈",
+  indicator_hint = "!",
+  indicator_ok = "",
+  spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+}
+
+lsp_status.register_progress()
 
  -- completion menu
 vim.o.completeopt="menuone,noinsert,noselect"
@@ -19,20 +49,21 @@ sign_define('LspDiagnosticsSignWarning', {text = '', numhl = 'YellowSign'})
 sign_define('LspDiagnosticsSignInformation', {text = '', numhl = 'WhiteSign'})
 sign_define('LspDiagnosticsSignHint', {text = '', numhl = 'BlueSign'})
 
-lspkind.init {symbol_map = kind_symbols}
-trouble.setup()
-
-lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = true,
-  signs = true,
-  update_in_insert = false,
-  underline = true
-})
 saga.init_lsp_saga {use_saga_diagnostic_sign = false}
+
+local nvim_exec = function(txt)
+  vim.api.nvim_exec(txt, false)
+end
 
 local keymap_opts = {noremap = true, silent = true}
 local function on_attach(client)
+
+  local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+
   lsp_status.on_attach(client)
+  vim.cmd [[augroup gm_lsp_status]]
+  vim.cmd [[  autocmd CursorHold,BufEnter <buffer> lua require('lsp-status').update_current_function()]]
+  vim.cmd [[augroup END]]
   completion.on_attach(client)
 
   buf_keymap(0, 'n', 'gh', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>', keymap_opts)
@@ -52,6 +83,17 @@ local function on_attach(client)
              keymap_opts)
   buf_keymap(0, 'n', '[e', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<cr>',
              keymap_opts)
+  --[[
+  nnoremap { "<space>dn", vim.lsp.diagnostic.goto_next, buffer = 0 }
+  nnoremap { "<space>dp", vim.lsp.diagnostic.goto_prev, buffer = 0 }
+  nnoremap { "<space>sl", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
+
+  nnoremap { "gd", vim.lsp.buf.definition, buffer = 0 }
+  nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
+
+  mapper("n", "K", "vim.lsp.buf.hover()")
+  mapper("i", "<c-s>", "vim.lsp.buf.signature_help()")
+  --]]
 
   if client.resolved_capabilities.document_formatting then
     buf_keymap(0, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>', keymap_opts)
@@ -63,6 +105,31 @@ local function on_attach(client)
     cmd('au CursorHold <buffer> lua require("lspsaga.diagnostic").show_cursor_diagnostics()')
     cmd('au CursorMoved <buffer> lua vim.lsp.buf.clear_references()')
     cmd('augroup END')
+  end
+
+  -- Rust is currently the only thing w/ inlay hints
+  -- if filetype == "rust" then
+  --  vim.cmd(
+  --    [[autocmd BufEnter,BufWritePost <buffer> :lua require('lsp_extensions.inlay_hints').request { ]]
+  --      .. [[aligned = true, prefix = " » " ]]
+  --      .. [[} ]]
+  --  )
+  -- end
+  if vim.tbl_contains({ "go", "rust" }, filetype) then
+    vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
+  end
+
+  vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    nvim_exec [[
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
   end
 end
 
@@ -94,7 +161,6 @@ local servers = {
   ocamllsp = {},
   gopls = {},
   pyright = {settings = {python = {formatting = {provider = 'yapf'}}}},
-  rust_analyzer = {},
   sumneko_lua = function()
     return require('lua-dev').setup({lspconfig = {cmd = {'lua-language-server'}}})
   end,
@@ -123,6 +189,17 @@ local servers = {
   },
   tsserver = {},
   vimls = {}
+}
+
+lspconfig.rust_analyzer.setup {
+  cmd = { "rust-analyzer" },
+  filetypes = { "rust" },
+  on_attach = on_attach,
+  on_init = function(client)
+    client.config.flags = client.config.flags or {}
+    client.config.flags.allow_incremental_sync = true
+  end,
+  capabilities = lsp_status.capabilities,
 }
 
 local snippet_capabilities = {
