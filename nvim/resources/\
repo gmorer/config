@@ -14,37 +14,61 @@ local helper = require "el.helper"
 local lsp_status = require "lsp-status"
 local config = require("config.lspstatus")
 
+ -- local has_lsp_extensions, ws_diagnostics = pcall(require, "lsp_extensions.workspace.diagnostic")
 local aliases = {pyls_ms = 'MPLS'}
+--[[
+local ws_diagnostic_counts = function(_, buffer)
+  if not has_lsp_extensions then
+    return ""
+  end
 
-local function show_lsp_status(_, _)
+  local msgs = {}
+
+  local error_count = ws_diagnostics.get_count(buffer.bufnr, "Error")
+
+  local x = "⬤"
+   -- print("errors:" .. tostring(error_count))
+  if error_count == 0 then
+    -- pass
+  elseif error_count < 5 then
+    table.insert(msgs, string.format("%s#%s#%s%%*", "%", "StatuslineError" .. error_count, x))
+  else
+    table.insert(msgs, string.format("%s#%s#%s%%*", "%", "StatuslineError5", x))
+  end
+
+  return table.concat(msgs, "")
+end
+--]]
+
+local function get_lsp_progress(_, _)
   local buf_messages = lsp_status.messages()
   -- print(vim.inspect(ipairs(buf_messages)))
   local msgs = {}
-  local has_progress = false
 
   for _, msg in ipairs(buf_messages) do
     local name = aliases[msg.name] or msg.name
-    local contents = ''
+    local client_name = '[' .. name .. ']'
+    local contents
     if msg.progress then
-      has_progress = true
       contents = msg.title
-      -- if msg.message then contents = contents .. ' ' .. msg.message end
+      if msg.message then contents = contents .. ' ' .. msg.message end
 
       -- this percentage format string escapes a percent sign once to show a percentage and one more
       -- time to prevent errors in vim statusline's because of it's treatment of % chars
       if msg.percentage then contents = contents .. string.format(" (%.0f%%%%)", msg.percentage) end
 
       if msg.spinner then
-        contents = contents .. ' ' .. config.spinner_frames[(msg.spinner % #config.spinner_frames) + 1]
+        contents = config.spinner_frames[(msg.spinner % #config.spinner_frames) + 1] .. ' ' ..
+          contents
       end
     else
       contents = msg.content
     end
 
-    table.insert(msgs, contents)
+    table.insert(msgs, client_name .. ' ' .. contents)
   end
 
-  -- errors, warnigns ...
+  -- errors, warnigns ....
 
   local diag = lsp_status.diagnostics()
   if diag.hints > 0 then
@@ -56,7 +80,7 @@ local function show_lsp_status(_, _)
   if diag.errors > 0 then
     table.insert(msgs, tostring(diag.errors) .. config.indicator_errors)
   end
-  if diag.hints == 0 and diag.warnings == 0 and diag.errors == 0 and has_progress == false then
+  if diag.hints == 0 && diag.warnings == 0 && diag.errors == 0 then
     table.insert(msgs, "[OK]")
   end
 
@@ -115,7 +139,8 @@ require("el").setup {
       },
       sections.split,
       show_current_func,
-      show_lsp_status,
+      get_lsp_progress,
+       -- ws_diagnostic_counts,
       builtin.filetype,
       "[",
       builtin.line_with_width(3),
