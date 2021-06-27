@@ -14,6 +14,7 @@ local helper = require "el.helper"
 local lsp_status = require "lsp-status"
 local config = require("config.lspstatus")
 
+local get_current_function = helper.buf_var('lsp_current_function')
 local aliases = {pyls_ms = 'MPLS'}
 
 local function show_lsp_status(_, _)
@@ -48,16 +49,17 @@ local function show_lsp_status(_, _)
 
   local diag = lsp_status.diagnostics()
   if diag.hints > 0 then
-    table.insert(msgs, tostring(diag.hints) .. config.indicator_hint)
+    table.insert(msgs, string.format('%%#%s#%s%%*', "CtrlPMode2", tostring(diag.hints) .. config.indicator_hint))
   end
   if diag.warnings > 0 then
     table.insert(msgs, tostring(diag.warnings) .. config.indicator_warnings)
+    table.insert(msgs, string.format('%%#%s#%s%%*', "DiffAdd", tostring(diag.warnings) .. config.indicator_warnings))
   end
   if diag.errors > 0 then
-    table.insert(msgs, tostring(diag.errors) .. config.indicator_errors)
+    table.insert(msgs, string.format('%%#%s#%s%%*', "ErrorMsg", tostring(diag.errors) .. config.indicator_errors))
   end
   if diag.hints == 0 and diag.warnings == 0 and diag.errors == 0 and has_progress == false then
-    table.insert(msgs, "[OK]")
+    table.insert(msgs, config.indicator_ok)
   end
 
   return table.concat(msgs, config.component_separator)
@@ -69,7 +71,7 @@ end
 -- 🌛︎🌝︎🌜︎🌚︎
 -- Show telescope icon / emoji when you open it as well
 
-local git_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
+local file_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
   local icon = extensions.file_icon(_, bufnr)
   if icon then
     return icon .. " "
@@ -93,8 +95,16 @@ local show_current_func = function(window, buffer)
   if buffer.filetype == "lua" then
     return ""
   end
+  if not buffer.lsp then
+    return ''
+  end
 
-  return lsp_statusline.current_function(window, buffer)
+  local ok, current_func = pcall(get_current_function, _, buffer)
+  if ok and current_func and #current_func > 0 then
+    return string.format('%s()', current_func)
+  end
+
+  return ''
 end
 
 require("el").setup {
@@ -107,7 +117,6 @@ require("el").setup {
       git_changes,
       " ",
       sections.split,
-      git_icon,
       sections.maximum_width(builtin.responsive_file(140, 90), 0.30),
       sections.collapse_builtin {
         " ",
@@ -115,13 +124,10 @@ require("el").setup {
       },
       sections.split,
       show_current_func,
+      " ",
       show_lsp_status,
-      builtin.filetype,
-      "[",
-      builtin.line_with_width(3),
-      ":",
-      builtin.column_with_width(2),
-      "]",
+      " ",
+      file_icon,
       sections.collapse_builtin {
         "[",
         builtin.help_list,

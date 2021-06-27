@@ -73,4 +73,14 @@ return require('packer').startup(function()
   -- Tree
   use 'kyazdani42/nvim-tree.lua'
 
+  -- Comments
+  use {
+    'terrortylor/nvim-comment',
+    config = function()
+      require('nvim_comment').setup({
+	create_mappings = false,
+      })
+    end,
+  }
+
 end)
