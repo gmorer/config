@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+BG="/tmp/lock.jpeg"
+
+grim -t jpeg  -q 20 ${BG}
+# convert ${BG} -blur 0x5 ${BG}
+convert -scale 20% -blur 0x2 -resize 500% ${BG} ${BG}
+swaylock -e -F -f -i ${BG}
