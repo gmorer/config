@@ -7,7 +7,7 @@
 echo "Depend on go rust clang, nice nerd fonts..."
 
 mkdir -p ${HOME}/bin \
-&& curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o ${HOME}/bin/nvim \
+&& curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ${HOME}/bin/nvim \
 && chmod +x ${HOME}/bin/nvim \
 && git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim \
 && mkdir -p ${HOME}/.local/share/nvim/site/pack/packer/start/ \
