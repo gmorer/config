@@ -39,7 +39,14 @@ exec swayidle -w \
     bindsym $mod+Shift+Return exec $term --class=floating
 
     # Lock the screen
-    bindsym $mod+Escape exec $lock
+    # bindsym $mod+Escape exec $lock
+
+        # Lock screen by entering the idle state
+        # Important that this is executed under bindsym --release AND sleep 0.2
+        # This workaround gives a few milliseconds for the keys on the keyboard to release (alt and L)
+        # before swayidle can detect them as activity and enter the active state again
+    bindsym --release $mod+Escape exec sleep 0.2 && killall -SIGUSR1 swayidle
+    bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -198,6 +205,11 @@ gaps inner 28
 gaps outer -8
 default_border none
 
-
+exec swayidle -w \
+    timeout 600 $lock \
+    timeout 605 'swaymsg "output * dpms off"' \
+    timeout 5 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep $lock
 
 exec mako
