@@ -1,2 +1,5 @@
 **/cache
 logs.err
+bin/binaries/eww
+bin/binaries/lightcord
+nvim/resources/plugin/packer_compiled.vim
