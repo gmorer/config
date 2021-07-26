@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+	echo "invalid number of argument" >&2
+	exit 1
+fi
+
+input="$1"
+output="$2"
+
+if [[ -z $output ]]; then
+	if [[ "$input" == *\.enc ]]; then
+		output=${input::-4}
+	else
+		echo "Missing output" >&2
+		exit
+	fi
+fi
+
+openssl enc -d -aes-256-cbc -md sha512 -iter 100000 -pbkdf2 -in ${input} -out ${output} 
