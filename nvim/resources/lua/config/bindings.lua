@@ -11,3 +11,12 @@ vim.api.nvim_set_keymap('', '<C-_>', ':CommentToggle<CR>', dfl_opt)
 vim.api.nvim_set_var('VM_maps', {['Find Under'] = '<C-d>', ['Find Subword Under'] = '<C-d>'})
 
 -- lsp stuf...
+
+-- Other config stuff
+
+vim.o.tabstop = 4
+vim.o.smartindent = true
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.relativenumber = true
+vim.o.number = true
