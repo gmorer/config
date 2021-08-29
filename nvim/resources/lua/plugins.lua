@@ -21,6 +21,16 @@ return require('packer').startup(function()
     'nvim-lua/lsp-status.nvim'
   }
 
+   -- lsp stuff
+  use {
+     "nvim-treesitter/nvim-treesitter",
+     event = "BufRead",
+     config = function()
+        require "config.treesitter"
+     end,
+  }
+
+
   use {
     "folke/lsp-trouble.nvim",
     config = function()

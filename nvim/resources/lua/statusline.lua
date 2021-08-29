@@ -9,22 +9,18 @@ local builtin = require "el.builtin"
 local extensions = require "el.extensions"
 local sections = require "el.sections"
 local subscribe = require "el.subscribe"
-local lsp_statusline = require "el.plugins.lsp_status"
 local helper = require "el.helper"
 local lsp_status = require "lsp-status"
 local config = require("config.lspstatus")
 
 local get_current_function = helper.buf_var('lsp_current_function')
-local aliases = {pyls_ms = 'MPLS'}
 
-local function show_lsp_status(_, _)
+local function show_lsp_status(_, buffer)
   local buf_messages = lsp_status.messages()
-  -- print(vim.inspect(ipairs(buf_messages)))
   local msgs = {}
   local has_progress = false
 
   for _, msg in ipairs(buf_messages) do
-    local name = aliases[msg.name] or msg.name
     local contents = ''
     if msg.progress then
       has_progress = true
@@ -47,12 +43,12 @@ local function show_lsp_status(_, _)
 
   -- errors, warnigns ...
 
-  local diag = lsp_status.diagnostics()
+  local diag = lsp_status.diagnostics(buffer.bufnr)
   if diag.hints > 0 then
     table.insert(msgs, string.format('%%#%s#%s%%*', "CtrlPMode2", tostring(diag.hints) .. config.indicator_hint))
   end
   if diag.warnings > 0 then
-    table.insert(msgs, tostring(diag.warnings) .. config.indicator_warnings)
+    -- table.insert(msgs, tostring(diag.warnings) .. config.indicator_warnings)
     table.insert(msgs, string.format('%%#%s#%s%%*', "DiffAdd", tostring(diag.warnings) .. config.indicator_warnings))
   end
   if diag.errors > 0 then
@@ -91,7 +87,8 @@ local git_changes = subscribe.buf_autocmd("el_git_changes", "BufWritePost", func
   return extensions.git_changes(window, buffer)
 end)
 
-local show_current_func = function(window, buffer)
+local show_current_func = function(_, buffer)
+  -- All the function are anonymous in lua
   if buffer.filetype == "lua" then
     return ""
   end
@@ -108,7 +105,11 @@ local show_current_func = function(window, buffer)
 end
 
 require("el").setup {
-  generator = function(_, _)
+  generator = function(_,  buffer)
+    -- dont display anything in nvimTree
+    if buffer.name:match('NvimTree$') then
+        return {}
+    end
     return {
       extensions.gen_mode {
         format_string = " %s ",

@@ -15,10 +15,10 @@ return {
     end
   end,
 
-  indicator_errors = "",
-  indicator_warnings = "",
-  indicator_info = "🛈",
-  indicator_hint = "!",
-  indicator_ok = "",
+  indicator_errors = " ",
+  indicator_warnings = " ",
+  indicator_info = "🛈 ",
+  indicator_hint = "! ",
+  indicator_ok = " ",
   spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
 }
