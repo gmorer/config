@@ -20,6 +20,7 @@ local function show_lsp_status(_, buffer)
   local msgs = {}
   local has_progress = false
 
+  local continue = true
   for _, msg in ipairs(buf_messages) do
     local contents = ''
     if msg.progress then
@@ -33,6 +34,8 @@ local function show_lsp_status(_, buffer)
 
       if msg.spinner then
         contents = contents .. ' ' .. config.spinner_frames[(msg.spinner % #config.spinner_frames) + 1]
+        table.insert(msgs, contents)
+        break
       end
     else
       contents = msg.content
@@ -124,7 +127,8 @@ require("el").setup {
         builtin.modified_flag,
       },
       sections.split,
-      show_current_func,
+      -- show_current_func,
+      lsp_status.current_function,
       " ",
       show_lsp_status,
       " ",

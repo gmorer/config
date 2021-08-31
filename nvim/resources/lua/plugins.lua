@@ -23,12 +23,11 @@ return require('packer').startup(function(use)
 
     -- lsp stuff
     use {
-        "nvim-treesitter/nvim-treesitter",
-        event = "BufRead",
-        config = function()
-            require "config.treesitter"
-        end,
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        cmd = 'TSInstall'
     }
+
 
 
     use {
