@@ -1,12 +1,12 @@
 local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
+local lsp_signature = require('lsp_signature')
 local saga = require('lspsaga')
-local completion = require('completion')
+-- local completion = require('completion')
 local lsp = vim.lsp
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local cmd = vim.cmd
 
-_ = require("lspkind").init()
 require("vim.lsp.log").set_level "debug"
 require "handlers"
 
@@ -33,15 +33,17 @@ local nvim_exec = function(txt)
 end
 
 local keymap_opts = {noremap = true, silent = true}
-local function on_attach(client)
+local function on_attach(client, bufnr)
 
     local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
     lsp_status.on_attach(client)
+    lsp_signature.on_attach(require("config.signature"), bufnr)
+
     vim.cmd [[augroup gm_lsp_status]]
     vim.cmd [[  autocmd CursorHold,BufEnter <buffer> lua require('lsp-status').update_current_function()]]
     vim.cmd [[augroup END]]
-    completion.on_attach(client)
+  --   completion.on_attach(client)
 
     buf_keymap(0, 'n', 'gh', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>', keymap_opts)
     buf_keymap(0, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', keymap_opts)
@@ -109,6 +111,24 @@ local function on_attach(client)
         ]]
     end
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+   properties = {
+      "documentation",
+      "detail",
+      "additionalTextEdits",
+   },
+}
+
 
 local servers = {
     omnisharp = { cmd = { '/home/guilhem/sources/omnisharp-linux-x64/run', '--languageserver' , '--hostPID', tostring(vim.fn.getpid()) } },
@@ -193,7 +213,7 @@ lspconfig.rust_analyzer.setup {
         client.config.flags.allow_incremental_sync = true
         -- client.config.diagnostics.disabled = '["missing-unsafe"]'
     end,
-    capabilities = lsp_status.capabilities,
+    -- capabilities = lsp_status.capabilities,
 }
 
 local snippet_capabilities = {
@@ -203,7 +223,7 @@ local snippet_capabilities = {
 for server, config in pairs(servers) do
     if type(config) == 'function' then config = config() end
     config.on_attach = on_attach
-    config.capabilities = vim.tbl_deep_extend('keep', config.capabilities or {},
-    lsp_status.capabilities, snippet_capabilities)
+    config.flags = { debounce_text_changes = 500 }
+    config.capabilities = capabilities
     lspconfig[server].setup(config)
 end

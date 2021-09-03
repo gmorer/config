@@ -73,9 +73,34 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/start/astronauta.nvim"
   },
-  ["completion-nvim"] = {
-    loaded = true,
-    path = "/home/tet/.local/share/nvim/site/pack/packer/start/completion-nvim"
+  ["cmp-buffer"] = {
+    after_files = { "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
+    load_after = {
+      ["cmp-nvim-lsp"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-buffer"
+  },
+  ["cmp-nvim-lsp"] = {
+    after = { "cmp-buffer" },
+    after_files = { "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua" },
+    load_after = {
+      ["cmp-nvim-lua"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lua"] = {
+    after = { "cmp-nvim-lsp" },
+    after_files = { "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lua/after/plugin/cmp_nvim_lua.lua" },
+    load_after = {
+      ["nvim-cmp"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lua"
   },
   ["express_line.nvim"] = {
     loaded = true,
@@ -111,9 +136,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
   },
-  ["lspkind-nvim"] = {
+  ["lsp_signature.nvim"] = {
     loaded = true,
-    path = "/home/tet/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+    path = "/home/tet/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
   },
   ["lspsaga.nvim"] = {
     loaded = true,
@@ -122,6 +147,13 @@ _G.packer_plugins = {
   ["lua-dev.nvim"] = {
     loaded = true,
     path = "/home/tet/.local/share/nvim/site/pack/packer/start/lua-dev.nvim"
+  },
+  ["nvim-cmp"] = {
+    after = { "cmp-nvim-lua" },
+    config = { "\27LJ\1\2*\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\15config.cmp\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/tet/.local/share/nvim/site/pack/packer/opt/nvim-cmp"
   },
   ["nvim-comment"] = {
     config = { "\27LJ\1\2R\0\0\2\0\4\0\a4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0>\0\2\1G\0\1\0\1\0\1\20create_mappings\1\nsetup\17nvim_comment\frequire\0" },
@@ -201,10 +233,17 @@ time([[Config for lsp-trouble.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command! -nargs=* -range -bang -complete=file TSInstall lua require("packer.load")({'nvim-treesitter'}, { cmd = "TSInstall", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command! -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file TSInstall lua require("packer.load")({'nvim-treesitter'}, { cmd = "TSInstall", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-cmp'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 end)

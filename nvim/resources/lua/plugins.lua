@@ -17,9 +17,13 @@ return require('packer').startup(function(use)
 
     -- Completion and linting
     use {
-        'onsails/lspkind-nvim', 'neovim/nvim-lspconfig',
+        'neovim/nvim-lspconfig',
         'nvim-lua/lsp-status.nvim'
     }
+
+    use {
+      "ray-x/lsp_signature.nvim",
+   }
 
     -- lsp stuff
     use {
@@ -27,8 +31,6 @@ return require('packer').startup(function(use)
         run = ':TSUpdate',
         cmd = 'TSInstall'
     }
-
-
 
     use {
         "folke/lsp-trouble.nvim",
@@ -44,16 +46,37 @@ return require('packer').startup(function(use)
     use 'glepnir/lspsaga.nvim'
     use 'folke/lua-dev.nvim'
 
-    use 'nvim-lua/completion-nvim'
-
     use 'nvim-lua/lsp_extensions.nvim'
+
+    use {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        config = function()
+            require "config.cmp"
+        end,
+    }
+
+    use {
+        "hrsh7th/cmp-nvim-lua",
+        after = "nvim-cmp",
+    }
+
+    use {
+        "hrsh7th/cmp-nvim-lsp",
+        after = "cmp-nvim-lua",
+    }
+
+    use {
+        "hrsh7th/cmp-buffer",
+        after = "cmp-nvim-lsp",
+    }
 
     use {
         'lewis6991/gitsigns.nvim',
         requires = {
             'nvim-lua/plenary.nvim'
         },
-        config = function()
+         config = function()
             require('gitsigns').setup()
         end
     }
