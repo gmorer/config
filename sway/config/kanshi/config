@@ -1,0 +1,5 @@
+profile home-perso {
+	output eDP-1 disable
+	output "Unknown Q27G2WG4 0x00002209" mode 2560x1440@143.912Hz position 1920,0
+}
+

@@ -8,12 +8,14 @@ set $term kitty
 set $lock /home/tet/bin/lock
 set $menu wofi
 
-output * bg /usr/share/backgrounds/default.png fill
+output * bg /home/tet/Downloads/wallpaper.png fill
 
-exec swayidle -w \
-         timeout 300 $lock \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep $lock
+# exec swayidle -w \
+#          timeout 300 $lock \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep $lock
+
+exec kanshi
 
 
 ### Input configuration
@@ -39,7 +41,7 @@ exec swayidle -w \
     bindsym $mod+Shift+Return exec $term --class=floating
 
     # Lock the screen
-    # bindsym $mod+Escape exec $lock
+    bindsym $mod+Escape exec $lock
 
         # Lock screen by entering the idle state
         # Important that this is executed under bindsym --release AND sleep 0.2
@@ -62,7 +64,7 @@ exec swayidle -w \
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -200,16 +202,16 @@ bar {
 # 
 # Font, borders, and gaps
 #
-font CaskaydiaCove Nerd Font 11
+font JetBrainsMono Nerd Font 10
 gaps inner 28
 gaps outer -8
 default_border none
 
-exec swayidle -w \
-    timeout 600 $lock \
-    timeout 605 'swaymsg "output * dpms off"' \
-    timeout 5 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
-    resume 'swaymsg "output * dpms on"' \
-    before-sleep $lock
+# exec swayidle -w \
+#     timeout 600 $lock \
+#     timeout 605 'swaymsg "output * dpms off"' \
+#     timeout 5 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
+#     resume 'swaymsg "output * dpms on"' \
+#     before-sleep $lock
 
 exec mako

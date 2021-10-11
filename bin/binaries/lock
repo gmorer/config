@@ -1,8 +1,14 @@
-#!/usr/bin/env bash
-
-BG="/tmp/lock.jpeg"
-
-grim -t jpeg  -q 20 ${BG}
-# convert ${BG} -blur 0x5 ${BG}
-convert -scale 20% -blur 0x2 -resize 500% ${BG} ${BG}
-swaylock -e -F -f -i ${BG}
+swaylock \
+	--screenshots \
+	--clock \
+	--indicator \
+	--indicator-radius 100 \
+	--indicator-thickness 7 \
+	--effect-blur 7x5 \
+	--effect-vignette 0.7:0.7 \
+	--ring-color bb00cc \
+	--key-hl-color 880033 \
+	--line-color 00000000 \
+	--inside-color 00000088 \
+	--separator-color 00000000 \
+	--fade-in 0.2
