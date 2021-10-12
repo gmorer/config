@@ -49,8 +49,13 @@ return require('packer').startup(function(use)
     use 'nvim-lua/lsp_extensions.nvim'
 
     use {
-        "hrsh7th/nvim-cmp",
+        "rafamadriz/friendly-snippets",
         event = "InsertEnter",
+    }
+
+    use {
+        "hrsh7th/nvim-cmp",
+        after = "friendly-snippets",
         config = function()
             require "config.cmp"
         end,
@@ -62,6 +67,18 @@ return require('packer').startup(function(use)
     }
 
     use {
+        "L3MON4D3/LuaSnip",
+        wants = "friendly-snippets",
+        after = "nvim-cmp",
+        config = require("config.others").luasnip(),
+    }
+
+   use {
+        "saadparwaiz1/cmp_luasnip",
+        after = "LuaSnip",
+    }
+
+    use {
         "hrsh7th/cmp-nvim-lsp",
         after = "cmp-nvim-lua",
     }
@@ -69,6 +86,11 @@ return require('packer').startup(function(use)
     use {
         "hrsh7th/cmp-buffer",
         after = "cmp-nvim-lsp",
+    }
+
+    use {
+        "hrsh7th/cmp-path",
+        after = "cmp-buffer",
     }
 
     use {

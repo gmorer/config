@@ -3,6 +3,11 @@ local cmp = require "cmp"
 vim.opt.completeopt = "menuone,noselect"
 
 cmp.setup({
+    snippet = {
+      expand = function(args)
+         require("luasnip").lsp_expand(args.body)
+      end,
+   },
     formatting = {
       format = function(entry, vim_item)
          -- load lspkind icons
