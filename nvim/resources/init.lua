@@ -17,6 +17,9 @@ require("telescoop")
 -- load Tree conf
 require("config.tree")
 
+-- load the indent conf
+require("config.indent")
+
 -- load the bindings
 require("config.bindings")
 
