@@ -1,15 +1,11 @@
 local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
 local lsp_signature = require('lsp_signature')
-local saga = require('lspsaga')
 -- local completion = require('completion')
 local lsp = vim.lsp
-local buf_keymap = vim.api.nvim_buf_set_keymap
 local cmd = vim.cmd
 
 require("vim.lsp.log").set_level "debug"
-require "handlers"
-
 -- Status part
 lsp_status.config(require("config.lspstatus"))
 
@@ -26,14 +22,16 @@ sign_define('LspDiagnosticsSignWarning', {text = '', numhl = 'YellowSign'})
 sign_define('LspDiagnosticsSignInformation', {text = '', numhl = 'WhiteSign'})
 sign_define('LspDiagnosticsSignHint', {text = '', numhl = 'BlueSign'})
 
-saga.init_lsp_saga {use_saga_diagnostic_sign = false}
-
 local nvim_exec = function(txt)
     vim.api.nvim_exec(txt, false)
 end
 
-local keymap_opts = {noremap = true, silent = true}
 local function on_attach(client, bufnr)
+
+    local function buf_keymap(...)
+      vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+    local opts = {noremap = true, silent = true}
 
     local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
@@ -45,23 +43,19 @@ local function on_attach(client, bufnr)
     vim.cmd [[augroup END]]
   --   completion.on_attach(client)
 
-    buf_keymap(0, 'n', 'gh', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'K', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gS', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>',
-    keymap_opts)
-    buf_keymap(0, 'n', 'gTD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', keymap_opts)
-    buf_keymap(0, 'n', '<leader>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', keymap_opts)
-    buf_keymap(0, 'n', 'gA', '<cmd>lua require("lspsaga.codeaction").code_action()<CR>', keymap_opts)
-    buf_keymap(0, 'v', 'gA', ':<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>',
-    keymap_opts)
-    buf_keymap(0, 'n', ']e', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<cr>',
-    keymap_opts)
-    buf_keymap(0, 'n', '[e', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<cr>',
-    keymap_opts)
+    buf_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.lsp_finder()<CR>', opts)
+    buf_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_keymap('n', 'gS', '<cmd>lua vim.lsp.buf.signature_helpCR>',opts)
+    buf_keymap('n', 'gTD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_keymap('n', 'gA', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_keymap('v', 'gA', ':<C-U>lua vim.lsp.buf.range_code_action()<CR>', opts)
+    buf_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+    buf_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev<cr>', opts)
     --[[
     nnoremap { "<space>dn", vim.lsp.diagnostic.goto_next, buffer = 0 }
     nnoremap { "<space>dp", vim.lsp.diagnostic.goto_prev, buffer = 0 }
@@ -73,18 +67,6 @@ local function on_attach(client, bufnr)
     mapper("n", "K", "vim.lsp.buf.hover()")
     mapper("i", "<c-s>", "vim.lsp.buf.signature_help()")
     --]]
-
-    if client.resolved_capabilities.document_formatting then
-        buf_keymap(0, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>', keymap_opts)
-    end
-
-    if client.resolved_capabilities.document_highlight == true then
-        cmd('augroup lsp_aucmds')
-        cmd('au CursorHold <buffer> lua vim.lsp.buf.document_highlight()')
-        cmd('au CursorHold <buffer> lua require("lspsaga.diagnostic").show_cursor_diagnostics()')
-        cmd('au CursorMoved <buffer> lua vim.lsp.buf.clear_references()')
-        cmd('augroup END')
-    end
 
     -- Rust is currently the only thing w/ inlay hints
     -- if filetype == "rust" then
@@ -128,6 +110,35 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
       "additionalTextEdits",
    },
 }
+
+-- replace the default lsp diagnostic symbols
+local function lspSymbol(name, icon)
+   vim.fn.sign_define("LspDiagnosticsSign" .. name, { text = icon, numhl = "LspDiagnosticsDefault" .. name })
+end
+
+lspSymbol("Error", "")
+lspSymbol("Information", "")
+lspSymbol("Hint", "")
+lspSymbol("Warning", "")
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+   border = "single",
+})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+   border = "single",
+})
+
+-- suppress error messages from lang servers
+vim.notify = function(msg, log_level, _opts)
+   if msg:match "exit code" then
+      return
+   end
+   if log_level == vim.log.levels.ERROR then
+      vim.api.nvim_err_writeln(msg)
+   else
+      vim.api.nvim_echo({ { msg } }, true, {})
+   end
+end
 
 
 local servers = {

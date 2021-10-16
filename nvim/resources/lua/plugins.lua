@@ -26,11 +26,12 @@ return require('packer').startup(function(use)
    }
 
     -- lsp stuff
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        cmd = 'TSInstall'
-    }
+    -- use {
+    --     'nvim-treesitter/nvim-treesitter',
+    --     run = ':TSUpdate',
+    --     cmd = {'TSInstall', 'TSUpdate'},
+    --     config = function() require'nvim-treesitter'.setup() end
+    -- }
 
     use {
         "folke/lsp-trouble.nvim",
@@ -43,7 +44,6 @@ return require('packer').startup(function(use)
         end,
     }
 
-    use 'glepnir/lspsaga.nvim'
     use 'folke/lua-dev.nvim'
 
     use 'nvim-lua/lsp_extensions.nvim'
@@ -125,7 +125,10 @@ return require('packer').startup(function(use)
     use 'tjdevries/express_line.nvim'
 
     -- Tree
-    use 'kyazdani42/nvim-tree.lua'
+    use { 'kyazdani42/nvim-tree.lua',
+        cmd = {'NvimTreeFindFile', 'NvimTreeToggle', 'NvimTreeToggle'},
+        config = function() require'nvim-tree'.setup {} end
+    }
 
     -- Comments
     use {
