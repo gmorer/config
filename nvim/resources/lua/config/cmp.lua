@@ -30,8 +30,8 @@ cmp.setup({
 		-- Waiting for fix
 		-- ['<Tab>'] = cmp.mapping.select_next_item(),
 		-- ['<S-Tab>'] = cmp.mapping.select_prev_item()
-		['<Up>'] = cmp.mapping.select_next_item(),
-		['<Down>'] = cmp.mapping.select_prev_item()
+		['<Up>'] = cmp.mapping.select_prev_item(),
+		['<Down>'] = cmp.mapping.select_next_item()
 	},
     sources = {
        { name = "nvim_lsp" },
