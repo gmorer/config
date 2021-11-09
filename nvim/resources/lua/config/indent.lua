@@ -11,7 +11,9 @@ local tab_4 = {
 }
 
 local langs = {
-    js = space_2,
+    javascript = space_2,
+    typescript = space_2,
+    typescriptreact = space_2,
     go = tab_4,
     rust = tab_4,
     c = tab_4,
