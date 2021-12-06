@@ -3,3 +3,5 @@ logs.err
 bin/binaries/eww
 bin/binaries/lightcord
 nvim/resources/plugin/packer_compiled.vim
+nvim/resources/plugin/packer_compiled.lua
+bin/binaries/tidal-hifi

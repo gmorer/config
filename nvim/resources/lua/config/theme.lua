@@ -1,6 +1,7 @@
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
-vim.api.nvim_command('let g:colors_name = "gruvbox"')
+vim.o.background = "dark"
+vim.cmd([[colorscheme gruvbox]])
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "⏎",

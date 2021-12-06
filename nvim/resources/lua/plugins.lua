@@ -113,7 +113,7 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
 
     -- Color scheme
-    use 'morhetz/gruvbox'
+    use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
 
     -- indent line
     use 'Yggdroot/indentLine'

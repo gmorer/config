@@ -5,7 +5,7 @@ local lsp_signature = require('lsp_signature')
 local lsp = vim.lsp
 local cmd = vim.cmd
 
-require("vim.lsp.log").set_level "debug"
+-- require("vim.lsp.log").set_level "debug"
 -- Status part
 lsp_status.config(require("config.lspstatus"))
 

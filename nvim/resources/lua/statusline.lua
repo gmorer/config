@@ -121,7 +121,8 @@ require("el").setup {
       git_changes,
       " ",
       sections.split,
-      sections.maximum_width(builtin.responsive_file(140, 90), 0.30),
+      -- sections.maximum_width(builtin.responsive_file(140, 90), 0.30), outdated
+      sections.maximum_width(builtin.make_responsive_file(140, 90), 0.30),
       sections.collapse_builtin {
         " ",
         builtin.modified_flag,
