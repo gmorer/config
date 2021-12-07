@@ -79,6 +79,9 @@ local function on_attach(client, bufnr)
     if vim.tbl_contains({ "go", "rust" }, filetype) then
         vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
     end
+    if vim.tbl_contains({ "deno"}, filetype) then
+		vim.g.markdown_fenced_languages = {"ts=typescript"}
+	end
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
@@ -196,7 +199,19 @@ local servers = {
             }
         }
     },
-    tsserver = {},
+    tsserver = {
+		-- Omitting some options
+		root_dir = lspconfig.util.root_pattern("package.json")
+	},
+    denols = {
+		-- Omitting some options
+		root_dir = lspconfig.util.root_pattern("deno.json"),
+		init_options = {
+    		enable = true,
+    		lint = false,
+    		unstable = true
+    	}
+	},
     vimls = {}
 }
 
