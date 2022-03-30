@@ -188,6 +188,8 @@ bindsym $mod+r mode "resize"
 #
 # Sripts
 #
+bindsym XF86MonBrightnessUp   exec "light -A 10 && light -O"
+bindsym XF86MonBrightnessDown exec "light -U 10 && light -O"
 #bindsym XF86AudioRaiseVolume exec "~/.config/scripts/audio.sh 3%+"
 #bindsym XF86AudioLowerVolume exec "~/.config/scripts/audio.sh 3%-"
 #bindsym $mod+m exec "amixer set Master toggle && amixer set Capture toggle"

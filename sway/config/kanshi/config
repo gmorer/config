@@ -4,6 +4,16 @@ profile home-perso {
 }
 
 profile alone {
-	output eDP-1 mode 1920x1080@59.934Hz position 0,0
+	output eDP-1 enable mode 3840x2400@59.994Hz position 0,0
+}
 
+profile alone1k {
+	output eDP-1 enable mode 1920x1080@59.934Hz position 0,0
+ 
+}
+
+
+profile work {
+	output eDP-1 disable
+	output DP-1 mode 1920x1080@60.000Hz position 0,0
 }
