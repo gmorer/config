@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-firefox --kiosk --new-instance --window-size 500,500  listen.tidal.com
