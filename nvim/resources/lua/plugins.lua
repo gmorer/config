@@ -118,9 +118,6 @@ return require('packer').startup(function(use)
     -- indent line
     use 'Yggdroot/indentLine'
 
-    -- Temporary
-    use 'tjdevries/astronauta.nvim'
-
     -- statius line
     use 'tjdevries/express_line.nvim'
 
