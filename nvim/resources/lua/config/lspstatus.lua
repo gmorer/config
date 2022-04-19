@@ -21,4 +21,5 @@ return {
   indicator_hint = "! ",
   indicator_ok = " ",
   spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+  current_function = true,
 }

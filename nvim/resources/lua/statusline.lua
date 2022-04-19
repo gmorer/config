@@ -16,35 +16,7 @@ local config = require("config.lspstatus")
 local get_current_function = helper.buf_var('lsp_current_function')
 
 local function show_lsp_status(_, buffer)
-  local buf_messages = lsp_status.messages()
   local msgs = {}
-  local has_progress = false
-
-  local continue = true
-  for _, msg in ipairs(buf_messages) do
-    local contents = ''
-    if msg.progress then
-      has_progress = true
-      contents = msg.title
-      -- if msg.message then contents = contents .. ' ' .. msg.message end
-
-      -- this percentage format string escapes a percent sign once to show a percentage and one more
-      -- time to prevent errors in vim statusline's because of it's treatment of % chars
-      if msg.percentage then contents = contents .. string.format(" (%.0f%%%%)", msg.percentage) end
-
-      if msg.spinner then
-        contents = contents .. ' ' .. config.spinner_frames[(msg.spinner % #config.spinner_frames) + 1]
-        table.insert(msgs, contents)
-        break
-      end
-    else
-      contents = msg.content
-    end
-
-    table.insert(msgs, contents)
-  end
-
-  -- errors, warnigns ...
 
   local diag = lsp_status.diagnostics(buffer.bufnr)
   if diag.hints > 0 then
@@ -57,7 +29,7 @@ local function show_lsp_status(_, buffer)
   if diag.errors > 0 then
     table.insert(msgs, string.format('%%#%s#%s%%*', "ErrorMsg", tostring(diag.errors) .. config.indicator_errors))
   end
-  if diag.hints == 0 and diag.warnings == 0 and diag.errors == 0 and has_progress == false then
+  if diag.hints == 0 and diag.warnings == 0 and diag.errors == 0 then
     table.insert(msgs, config.indicator_ok)
   end
 
@@ -77,6 +49,12 @@ local file_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, b
   end
 
   return ""
+end)
+
+vim.api.nvim_command(
+      'au CursorHold <buffer> lua require("lsp-status").update_current_function()')
+local current_function = subscribe.buf_autocmd("el_current_function", "CursorHold", function(_, _)
+	return vim.b.lsp_current_function
 end)
 
 local git_branch = subscribe.buf_autocmd("el_git_branch", "BufEnter", function(window, buffer)
@@ -128,8 +106,8 @@ require("el").setup {
         builtin.modified_flag,
       },
       sections.split,
-      -- show_current_func,
-      lsp_status.current_function,
+      show_current_func,
+	    current_function,
       " ",
       show_lsp_status,
       " ",

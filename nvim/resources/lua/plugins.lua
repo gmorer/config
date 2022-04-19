@@ -83,6 +83,13 @@ return require('packer').startup(function(use)
         after = "cmp-nvim-lua",
     }
 
+	use {
+		"rcarriga/nvim-notify",
+		config = function()
+			require("config.notify")
+		end
+	}
+
     use {
         "hrsh7th/cmp-buffer",
         after = "cmp-nvim-lsp",

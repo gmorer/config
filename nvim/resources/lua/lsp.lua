@@ -9,8 +9,6 @@ local cmd = vim.cmd
 -- Status part
 lsp_status.config(require("config.lspstatus"))
 
-lsp_status.register_progress()
-
 -- completion menu
 vim.o.completeopt="menuone,noinsert,noselect"
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
@@ -97,7 +95,7 @@ local function on_attach(client, bufnr)
     end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = lsp_status.capabilities
 capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -240,7 +238,6 @@ lspconfig.rust_analyzer.setup {
         client.config.flags.allow_incremental_sync = true
         -- client.config.diagnostics.disabled = '["missing-unsafe"]'
     end,
-    -- capabilities = lsp_status.capabilities,
 }
 
 local snippet_capabilities = {

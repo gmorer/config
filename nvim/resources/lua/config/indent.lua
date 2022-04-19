@@ -18,7 +18,7 @@ local langs = {
     rust = tab_4,
     c = tab_4,
     cpp = tab_4,
-    lua = tab_4,
+    lua = space_2,
 }
 
 for lang, options in pairs(langs) do
