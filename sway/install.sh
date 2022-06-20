@@ -10,3 +10,5 @@ rm -rf ${HOME}/.config/kanshi
 ln -fs  ${PWD}/config/kanshi ${HOME}/.config/kanshi
 rm -rf ${HOME}/.config/mako
 ln -fs  ${PWD}/config/mako ${HOME}/.config/mako
+mkdir -p ${HOME}/.config/systemd/user
+cp -rf ${PWD}/sway.service ${HOME}/.config/systemd/user/sway.service

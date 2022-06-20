@@ -6,7 +6,12 @@ set $up k
 set $right l
 set $term kitty
 set $lock /home/tet/bin/lock
-set $menu wofi
+set $menu rofi -show combi
+
+# Systemd integration
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+exec systemd-cat --identifier=sway sway
+
 
 output * bg /home/tet/Downloads/wallpaper.png fill
 
