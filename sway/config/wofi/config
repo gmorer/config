@@ -1,8 +1,0 @@
-layer=overlay
-mode=run
-insensitive=true
-prompt=
-term=kitty
-hide_scroll=true
-location=2
-yoffset=50
