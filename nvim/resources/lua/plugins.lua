@@ -85,13 +85,6 @@ return require('packer').startup(function(use)
   }
 
   use {
-    "rcarriga/nvim-notify",
-    config = function()
-      require("config.notify")
-    end
-  }
-
-  use {
     "hrsh7th/cmp-buffer",
     after = "cmp-nvim-lsp",
   }
@@ -142,7 +135,6 @@ return require('packer').startup(function(use)
   use {
     'nvim-lualine/lualine.nvim',
     requires = {
-      {'kyazdani42/nvim-tree.lua', opt = false },
       {'arkav/lualine-lsp-progress', opt = false },
       {'kyazdani42/nvim-web-devicons', opt = true }
     }

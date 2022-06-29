@@ -3,8 +3,6 @@
 -- Credit: glepnir
 local lualine = require('lualine')
 
-require('nvim-tree').setup()
-
 vim.opt.laststatus = 3
 
 -- Color table for highlights
@@ -87,10 +85,20 @@ end
 
 ins_left {
   function ()
+    local status_ok, nvimtree = pcall(require, "nvim-tree.view")
+  if not status_ok then
+    return ''
+  end
     return string.rep(' ',
-    vim.api.nvim_win_get_width(require'nvim-tree.view'.get_winnr()) - 2)
+    vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 2)
   end,
-  cond = require('nvim-tree.view').is_visible,
+  cond = function ()
+    local status_ok, nvimtree = pcall(require, "nvim-tree.view")
+    if not status_ok then
+      return false
+    end
+    return nvimtree.is_visible()
+  end,
   color = 'Normal'
 }
 
