@@ -8,14 +8,14 @@ end
 -- Load the LSP conf
 require("lsp")
 
+-- load Tree conf
+require("config.tree")
+
 -- Load status line
 require("statusline")
 
 -- Load telescope
 require("telescoop")
-
--- load Tree conf
-require("config.tree")
 
 -- load the indent conf
 require("config.indent")

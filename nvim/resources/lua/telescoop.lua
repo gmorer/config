@@ -1,4 +1,3 @@
-local map_key = vim.api.nvim_set_keymap
 local map = require('config.utils').map
 
 local silent = {silent = true}

@@ -1,6 +1,27 @@
-vim.api.nvim_set_var('nvim_tree_quit_on_open', 1)
-vim.api.nvim_set_var('nvim_tree_git_hl', 1)
-vim.api.nvim_set_var('nvim_tree_highlight_opened_files', 1)
- -- This is unsetting my listchars
--- vim.api.nvim_set_var('nvim_tree_auto_open', 1)
-vim.api.nvim_set_var('nvim_tree_indent_markers', 1)
+require("nvim-tree").setup({
+  actions = {
+    open_file = {
+      quit_on_open = true;
+    }
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 400,
+  },
+  renderer = {
+    highlight_git = false,
+    highlight_opened_files = "name",
+
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└ ",
+        edge = "│ ",
+        item = "│ ",
+        none = "  ",
+      }
+    }
+  },
+
+})
