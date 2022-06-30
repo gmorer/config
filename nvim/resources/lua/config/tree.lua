@@ -23,5 +23,11 @@ require("nvim-tree").setup({
       }
     }
   },
-
+  filesystem_watchers = {
+    enable = true,
+  },
+  view = {
+    hide_root_folder = true,
+    signcolumn = 'no',
+  }
 })

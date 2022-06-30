@@ -1,10 +1,10 @@
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
 vim.o.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme onedark]])
 vim.opt.list = true
 vim.opt.listchars = {
-  eol = "⏎",
+  -- eol = "⏎",
   tab = '┊ ',
   trail = "●",
   nbsp = "⎵",
@@ -13,5 +13,10 @@ vim.opt.listchars = {
 }
 
 vim.api.nvim_set_var('indentLine_char', '┊')
-vim.api.nvim_set_var('indentLine_showFirstIndentLevel', 1)
+vim.api.nvim_set_var('indentLine_showFirstIndentLevel', 0)
 vim.api.nvim_set_var('indentLine_first_char', '┊')
+
+require('onedark').setup {
+    style = 'darker'
+}
+require('onedark').load()
