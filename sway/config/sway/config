@@ -5,15 +5,15 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $lock /home/tet/bin/lock
 set $menu rofi -show combi
 
 # Systemd integration
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 exec systemd-cat --identifier=sway sway
 
+set $lock /home/guilhem/.local/bin/lock
 
-output * bg /home/tet/Downloads/wallpaper.png fill
+output * bg /home/guilhem/Pictures/wp1.jpg fill
 
 # exec swayidle -w \
 #          timeout 300 $lock \
@@ -21,6 +21,9 @@ output * bg /home/tet/Downloads/wallpaper.png fill
 #          before-sleep $lock
 
 exec kanshi
+
+# font fix for flatpak
+exec /usr/libexec/xdg-desktop-portal-gnome -r
 
 
 ### Input configuration
@@ -193,8 +196,8 @@ bindsym $mod+r mode "resize"
 #
 # Sripts
 #
-bindsym XF86MonBrightnessUp   exec "light -A 10 && light -O"
-bindsym XF86MonBrightnessDown exec "light -U 10 && light -O"
+bindsym XF86MonBrightnessUp   exec "light -A 5 && light -O"
+bindsym XF86MonBrightnessDown exec "light -U 5 && light -O"
 #bindsym XF86AudioRaiseVolume exec "~/.config/scripts/audio.sh 3%+"
 #bindsym XF86AudioLowerVolume exec "~/.config/scripts/audio.sh 3%-"
 #bindsym $mod+m exec "amixer set Master toggle && amixer set Capture toggle"
