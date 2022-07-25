@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-rm -rf ${HOME}/bin
-ln -fs  ${PWD}/binaries ${HOME}/bin
-chmod +x ${HOME}/bin/*
+rm -rf ${HOME}/.local/bin
+ln -fs  ${PWD}/binaries ${HOME}/.local/bin
+chmod +x ${HOME}/.local/bin/*
