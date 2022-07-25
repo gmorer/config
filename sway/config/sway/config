@@ -13,7 +13,7 @@ exec systemd-cat --identifier=sway sway &
 
 set $lock /home/guilhem/.local/bin/lock
 
-output * bg /home/guilhem/Pictures/wp1.jpg fill
+output * bg /home/tet/Downloads/wallpaper.png fill
 
 exec /usr/lib/xdg-desktop-portal-wlr -r &
 
@@ -244,6 +244,7 @@ bar {
 font JetBrainsMono Nerd Font 10
 gaps inner 28
 gaps outer -8
+smart_gaps on
 default_border none
 
 # exec swayidle -w \
