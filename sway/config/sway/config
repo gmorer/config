@@ -8,19 +8,21 @@ set $term kitty
 set $menu rofi -show combi
 
 # Systemd integration
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
-exec systemd-cat --identifier=sway sway
+exec "systemctl --user import-environment; systemctl --user start sway-session.target" &
+exec systemd-cat --identifier=sway sway &
 
 set $lock /home/guilhem/.local/bin/lock
 
 output * bg /home/guilhem/Pictures/wp1.jpg fill
+
+exec /usr/lib/xdg-desktop-portal-wlr -r &
 
 # exec swayidle -w \
 #          timeout 300 $lock \
 #          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
 #          before-sleep $lock
 
-exec kanshi
+exec kanshi &
 
 # font fix for flatpak
 exec /usr/libexec/xdg-desktop-portal-gnome -r
@@ -251,4 +253,4 @@ default_border none
 #     resume 'swaymsg "output * dpms on"' \
 #     before-sleep $lock
 
-exec mako
+exec mako &
