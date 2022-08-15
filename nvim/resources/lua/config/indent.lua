@@ -19,6 +19,7 @@ local langs = {
     c = tab_4,
     cpp = tab_4,
     lua = space_2,
+    cs = space_4,
 }
 
 for lang, options in pairs(langs) do

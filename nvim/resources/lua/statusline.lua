@@ -3,8 +3,6 @@
 -- Credit: glepnir
 local lualine = require('lualine')
 
-vim.opt.laststatus = 3
-
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
@@ -38,6 +36,7 @@ local conditions = {
 -- Config
 local config = {
   options = {
+    globalstatus = true,
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
@@ -50,6 +49,7 @@ local config = {
       -- inactive = { c = { fg = colors.fg, bg = colors.bg } },
       --
     -- },
+    ignore_focus = {'NvimTree'},
   },
   sections = {
     -- these are to remove the defaults
