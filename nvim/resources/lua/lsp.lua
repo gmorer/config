@@ -200,15 +200,15 @@ local servers = {
 		-- Omitting some options
 		root_dir = lspconfig.util.root_pattern("package.json")
 	},
-    denols = {
+    -- denols = {
 		-- Omitting some options
-		root_dir = lspconfig.util.root_pattern("deno.json"),
-		init_options = {
-    		enable = true,
-    		lint = false,
-    		unstable = true
-    	}
-	},
+		-- root_dir = lspconfig.util.root_pattern("deno.json"),
+		-- init_options = {
+		--     		enable = false,
+		--     		lint = false,
+		--     		unstable = true
+		--     	}
+	-- },
     vimls = {}
 }
 

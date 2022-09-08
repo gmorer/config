@@ -119,6 +119,31 @@ return require('packer').startup(function(use)
   -- indent line
   use 'Yggdroot/indentLine'
 
+  --[[
+  TODO: wait for next release
+  use {
+    'levouh/tint.nvim',
+    config = function()
+      require('tint').setup()
+    end
+  }
+  --]]
+
+  use({
+    "Pocco81/true-zen.nvim",
+    config = function()
+      require("true-zen").setup {
+        integrations = {
+          lualine = true,
+          kitty = {
+            enabled = true,
+            font = "+3",
+          },
+        },
+      }
+    end,
+  })
+
   -- Tree
   use {
     'kyazdani42/nvim-tree.lua',
