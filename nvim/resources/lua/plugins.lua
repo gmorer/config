@@ -151,15 +151,6 @@ return require('packer').startup(function(use)
     end,
   })
 
-  -- terminal
-
-  use({
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require "config.terminal"
-    end,
-  })
-
   -- Tree
   use {
     'kyazdani42/nvim-tree.lua',
@@ -180,8 +171,6 @@ return require('packer').startup(function(use)
       {'kyazdani42/nvim-web-devicons', opt = true }
     }
   }
-
-
 
   -- Comments
   use {
