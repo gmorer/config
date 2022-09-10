@@ -129,6 +129,8 @@ return require('packer').startup(function(use)
   }
   --]]
 
+  -- zen mode
+
   use({
     "Pocco81/true-zen.nvim",
     config = function()
@@ -140,7 +142,21 @@ return require('packer').startup(function(use)
             font = "+3",
           },
         },
+        modes = {
+          narrow = {
+            folds_style = "invisible",
+          },
+        },
       }
+    end,
+  })
+
+  -- terminal
+
+  use({
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require "config.terminal"
     end,
   })
 
