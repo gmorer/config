@@ -3,7 +3,7 @@ local dfl_opt = { noremap = true, silent = true }
 -- nnoremap <C-n> :NvimTreeToggle<CR>
 -- vim.api.nvim_set_keymap('', '<C-n>', ':NvimTreeFindFileToggle<CR>', dfl_opt)
 vim.api.nvim_set_keymap('', '<C-n>', ':Neotree toggle filesystem left reveal<CR>', dfl_opt)
-vim.api.nvim_set_keymap('n', '<S-T>', ':Neotree buffers float<CR>', dfl_opt)
+vim.api.nvim_set_keymap('n', '<S-T>', ':lua require"telescope.builtin".buffers{}<CR>', dfl_opt)
 
 -- nnoremap <Leader>s :<C-u> :Git blame<CR>
 vim.api.nvim_set_keymap('', '<Leader>s', ':<C-u> : GitMessenger<CR>', dfl_opt)
