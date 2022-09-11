@@ -71,7 +71,11 @@ local config = {
     lualine_x = {},
   },
   disabled_filetypes = {
-    'NvimTrees'
+    'NvimTrees',
+    'NvimTree',
+  },
+  extensions = {
+    'neo-tree',
   }
 }
 
@@ -91,7 +95,8 @@ ins_left {
   if not status_ok then
     return ''
   end
-    return string.rep(' ', vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 2)
+    return string.rep(' ', vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 1)
+    -- return string.rep(' ', vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 2)
   end,
   cond = function ()
     local status_ok, nvimtree = pcall(require, "nvim-tree.view")

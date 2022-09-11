@@ -9,7 +9,7 @@ end
 require("lsp")
 
 -- load Tree conf
-require("config.tree")
+-- require("config.tree")
 
 -- Load status line
 require("statusline")

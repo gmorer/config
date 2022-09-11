@@ -4,17 +4,26 @@ return require('packer').startup(function(use)
 
   -- use himself
   use 'wbthomason/packer.nvim'
+  use 'nvim-lua/plenary.nvim'
 
   -- Search
+  --[[
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = require('config.telescope'),
     cmd = 'Telescope'
   }
+  --]]
 
-  use {'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sql.nvim'}
-
+  -- use {'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sql.nvim'}
+  use { "nvim-telescope/telescope.nvim",
+    config = require('config.telescope'),
+    after = "nvim-web-devicons"
+  }
+  use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+  use { "nvim-telescope/telescope-media-files.nvim" }
+  use { "nvim-telescope/telescope-ui-select.nvim" }
   -- Completion and linting
   use {
     'neovim/nvim-lspconfig',
@@ -114,7 +123,8 @@ return require('packer').startup(function(use)
   use 'kyazdani42/nvim-web-devicons'
 
   -- Theme
-  use 'navarasu/onedark.nvim'
+  -- use 'navarasu/onedark.nvim'
+  use 'B4mbus/oxocarbon-lua.nvim'
 
   -- indent line
   use 'Yggdroot/indentLine'
@@ -152,6 +162,7 @@ return require('packer').startup(function(use)
   })
 
   -- Tree
+  --[[
   use {
     'kyazdani42/nvim-tree.lua',
     -- cmd = {'NvimTreeFindFile', 'NvimTreeToggle', 'NvimTreeToggle'},
@@ -163,6 +174,19 @@ return require('packer').startup(function(use)
       require("config.tree")
     end
   }
+  --]]
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require('config.tree')
+    end
+  }
 
   use {
     'nvim-lualine/lualine.nvim',
@@ -170,6 +194,29 @@ return require('packer').startup(function(use)
       {'arkav/lualine-lsp-progress', opt = false },
       {'kyazdani42/nvim-web-devicons', opt = true }
     }
+  }
+
+  -- tabbar
+  use {
+    'akinsho/bufferline.nvim',
+    tag = "v2.*",
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require("bufferline").setup{
+        options = {
+          -- modified_icon = '●',
+          always_show_bufferline = true,
+          mode = 'tabs',
+          indicator = {
+            style = 'underline',
+          },
+          offsets = {
+            {filetype = "NvimTree", text = "File Explorer", text_align = "left", padding = 1},
+            {filetype = "neo-tree", text = "File Explorer", text_align = "left"}
+        },
+      }
+    }
+    end,
   }
 
   -- Comments

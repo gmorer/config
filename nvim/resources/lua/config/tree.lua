@@ -1,7 +1,8 @@
+--[[
 require("nvim-tree").setup({
   actions = {
     open_file = {
-      quit_on_open = true;
+      quit_on_open = true,
     }
   },
   git = {
@@ -30,4 +31,12 @@ require("nvim-tree").setup({
     hide_root_folder = true,
     signcolumn = 'no',
   }
+})
+--]]
+require("neo-tree").setup({
+  window = {
+    mappings = {
+      ["<tab>"] = "open",
+    },
+  },
 })
