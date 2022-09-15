@@ -5,6 +5,10 @@ if require "first_load"() then
   return
 end
 
+if vim.g.neovide then
+  require("config.neovide")
+end
+
 -- Load the LSP conf
 require("lsp")
 
