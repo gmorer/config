@@ -28,5 +28,5 @@ ResetGuiFont()
 
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set({'n', 'i'}, "<C-S-_>", function() ResizeGuiFont(1)  end, opts)
-vim.keymap.set({'n', 'i'}, "<C-S-+>", function() ResizeGuiFont(-1) end, opts)
+vim.keymap.set({'n', 'i'}, "<C-S-_>", function() ResizeGuiFont(-1)  end, opts)
+vim.keymap.set({'n', 'i'}, "<C-S-+>", function() ResizeGuiFont(1) end, opts)
