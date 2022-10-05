@@ -129,15 +129,12 @@ return require('packer').startup(function(use)
   -- indent line
   use 'Yggdroot/indentLine'
 
-  --[[
-  TODO: wait for next release
   use {
     'levouh/tint.nvim',
     config = function()
       require('tint').setup()
     end
   }
-  --]]
 
   -- zen mode
 
