@@ -17,10 +17,16 @@ return require('packer').startup(function(use)
   --]]
 
   -- use {'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sql.nvim'}
-  use { "nvim-telescope/telescope.nvim",
+  use {
+    "nvim-telescope/telescope.nvim",
     config = require('config.telescope'),
     after = "nvim-web-devicons"
   }
+  -- has to be before lspconfig
+  use {
+    "folke/neodev.nvim",
+  }
+
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use { "nvim-telescope/telescope-media-files.nvim" }
   use { "nvim-telescope/telescope-ui-select.nvim" }
@@ -54,8 +60,6 @@ return require('packer').startup(function(use)
     end,
   }
 
-  use 'folke/lua-dev.nvim'
-
   use 'nvim-lua/lsp_extensions.nvim'
 
   use {
@@ -70,7 +74,6 @@ return require('packer').startup(function(use)
       require "config.cmp"
     end,
   }
-
   use {
     "hrsh7th/cmp-nvim-lua",
     after = "nvim-cmp",
@@ -108,8 +111,7 @@ return require('packer').startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim'
     },
-    config = function()
-      require('gitsigns').setup()
+    config = function() require('gitsigns').setup()
     end
   }
 
@@ -157,6 +159,16 @@ return require('packer').startup(function(use)
       }
     end,
   })
+
+  -- Mind
+  use {
+    'phaazon/mind.nvim',
+    branch = 'master',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require'mind'.setup()
+    end
+  }
 
   -- Tree
   --[[
@@ -209,7 +221,8 @@ return require('packer').startup(function(use)
           },
           offsets = {
             {filetype = "NvimTree", text = "File Explorer", text_align = "left", padding = 1},
-            {filetype = "neo-tree", text = "File Explorer", text_align = "left"}
+            {filetype = "neo-tree", text = "File Explorer", text_align = "left"},
+            {filetype = "mind", text = "mind.nvim", text_align = "center"}
         },
       }
     }
@@ -225,5 +238,19 @@ return require('packer').startup(function(use)
       })
     end,
   }
+
+  -- Command line
+  use({
+    "folke/noice.nvim",
+    event = "VimEnter",
+    config = function()
+      require("config.noice")
+      require("noice").setup()
+    end,
+    requires = {
+      "nvim-telescope/telescope.nvim",
+      "MunifTanjim/nui.nvim",
+      }
+  })
 
 end)

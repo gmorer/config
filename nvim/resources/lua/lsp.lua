@@ -4,6 +4,8 @@ local lsp_signature = require('lsp_signature')
 -- local completion = require('completion')
 local lsp = vim.lsp
 
+require("neodev").setup({})
+
 -- require("vim.lsp.log").set_level "debug"
 -- Status part
 lsp_status.config(require("config.lspstatus"))
@@ -172,9 +174,15 @@ local servers = {
     ocamllsp = {},
     gopls = {},
     pyright = {settings = {python = {formatting = {provider = 'yapf'}}}},
-    sumneko_lua = function()
-        return require('lua-dev').setup({lspconfig = {cmd = {'lua-language-server'}}})
-    end,
+    sumneko_lua = {
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = "Replace",
+          }
+        }
+      }
+    },
     texlab = {
         settings = {
             texlab = {

@@ -18,9 +18,6 @@ require("lsp")
 -- Load status line
 require("statusline")
 
--- Load telescope
-require("telescoop")
-
 -- load the indent conf
 require("config.indent")
 

@@ -35,3 +35,14 @@ vim.api.nvim_set_var('indentLine_char', '┊')
 vim.api.nvim_set_var('indentLine_showFirstIndentLevel', 0)
 vim.api.nvim_set_var('indentLine_first_char', '┊')
 
+-- does not work with filetype
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = {"*"},
+  callback = function ()
+    if vim.bo.filetype == "mind" then
+      vim.o.relativenumber = false
+    end
+  end
+})
+
+-- vim.cmd('autocmd FileType mind setlocal nonumber norelativenumber')

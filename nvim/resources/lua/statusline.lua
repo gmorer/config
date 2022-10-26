@@ -92,9 +92,9 @@ end
 ins_left {
   function ()
     local status_ok, nvimtree = pcall(require, "nvim-tree.view")
-  if not status_ok then
-    return ''
-  end
+    if not status_ok then
+      return ''
+    end
     return string.rep(' ', vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 1)
     -- return string.rep(' ', vim.api.nvim_win_get_width(nvimtree.get_winnr()) - 2)
   end,
@@ -114,6 +114,25 @@ ins_left {
   end,
   color = { fg = colors.blue }, -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
+}
+
+ins_left {
+  function()
+    local status_ok, noice = pcall(require, "noice")
+    if not status_ok then
+      return false
+    end
+    -- return noice.api.statusline.mode.get
+    return noice.api.status.mode.get()
+  end,
+  cond = function()
+    local status_ok, noice = pcall(require, "noice")
+    if not status_ok then
+      return false
+    end
+    return noice.api.status.mode.has()
+  end,
+  color = { fg = "#ff9e64" },
 }
 
 ins_left {
@@ -193,10 +212,6 @@ ins_left {
   end,
   icon = ' LSP:',
   color = { fg = '#ffffff', gui = 'bold' },
-}
-
-ins_left {
-  'lsp_progress'
 }
 
 ins_left {
