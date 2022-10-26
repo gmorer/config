@@ -6,6 +6,10 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
 
+  use { 'dstein64/vim-startuptime',
+      cmd = { "StartupTime" },
+    }
+
   -- Search
   --[[
   use {
@@ -245,7 +249,6 @@ return require('packer').startup(function(use)
     event = "VimEnter",
     config = function()
       require("config.noice")
-      require("noice").setup()
     end,
     requires = {
       "nvim-telescope/telescope.nvim",
