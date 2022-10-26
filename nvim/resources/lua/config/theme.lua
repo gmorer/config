@@ -29,7 +29,7 @@ vim.o.winbar = vim.o.statusline
 vim.o.statusline = " "
 
 -- Disable mouse
-vim.o.mous=""
+vim.o.mouse=""
 
 vim.api.nvim_set_var('indentLine_char', '┊')
 vim.api.nvim_set_var('indentLine_showFirstIndentLevel', 0)

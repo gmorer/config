@@ -143,7 +143,7 @@ end
 
 local servers = {
     omnisharp = { cmd = { '/home/guilhem/sources/omnisharp-linux-x64/run', '--languageserver' , '--hostPID', tostring(vim.fn.getpid()) } },
-    bashls = {},
+    -- bashls = {},
     clangd = {
         cmd = {
             'clangd', -- '--background-index',
@@ -158,11 +158,13 @@ local servers = {
             semanticHighlighting = true
         }
     },
+    --[[
     cssls = {
         cmd = {'vscode-css-languageserver', '--stdio'},
         filetypes = {"css", "scss", "less", "sass"},
         root_dir = lspconfig.util.root_pattern("package.json", ".git")
     },
+    --]]
     ghcide = {},
     html = { cmd = {'vscode-html-languageserver', '--stdio'}},
     jsonls = {cmd = {'json-languageserver', '--stdio'}},

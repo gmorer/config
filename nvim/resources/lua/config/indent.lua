@@ -4,6 +4,12 @@ local space_2 = {
     shiftwidth = "2",
 }
 
+local space_4 = {
+    expandtab = "",
+    tabstop = "4",
+    shiftwidth = "4",
+}
+
 local tab_4 = {
     noexpandtab = "",
     tabstop = "4",
@@ -20,6 +26,7 @@ local langs = {
     cpp = tab_4,
     lua = space_2,
     cs = space_4,
+    proto = space_2,
 }
 
 for lang, options in pairs(langs) do
