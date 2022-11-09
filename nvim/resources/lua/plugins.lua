@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
   -- use {'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sql.nvim'}
   use {
     "nvim-telescope/telescope.nvim",
-    config = require('config.telescope'),
+    config = function () require('config.telescope') end,
     after = "nvim-web-devicons"
   }
   -- has to be before lspconfig
@@ -45,11 +45,7 @@ return require('packer').startup(function(use)
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       cmd = {'TSInstall', 'TSUpdate', 'TSInstallInfo'},
-      config = function()
-        local conf = require("config.treesitter")
-        require('nvim-treesitter.configs').setup(conf.setup)
-        conf.config()
-      end,
+      config = function () require("config.treesitter") end,
       event = "bufEnter",
   }
 

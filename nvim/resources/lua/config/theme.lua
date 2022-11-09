@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     if vim.bo.filetype == "mind" then
       vim.o.relativenumber = false
     end
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {

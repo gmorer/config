@@ -75,7 +75,7 @@ local function on_attach(client, bufnr)
     --  )
     -- end
     if vim.tbl_contains({ "go", "rust" }, filetype) then
-        vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
+        vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.format({ async = false })]]
     end
     if vim.tbl_contains({ "deno"}, filetype) then
 		vim.g.markdown_fenced_languages = {"ts=typescript"}

@@ -26,3 +26,7 @@ vim.opt.clipboard = "unnamedplus"
 -- vim.cmd('autocmd TermOpen * setlocal nonumber norelativenumber')
 
 vim.o.belloff = 'all'
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldenable = false
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
