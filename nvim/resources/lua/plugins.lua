@@ -40,16 +40,16 @@ return require('packer').startup(function(use)
     'nvim-lua/lsp-status.nvim'
   }
 
-  use {
-    "ray-x/lsp_signature.nvim",
-  }
-
   -- lsp stuff
   use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       cmd = {'TSInstall', 'TSUpdate', 'TSInstallInfo'},
-      config = function() require'config/treesitter' end,
+      config = function()
+        local conf = require("config.treesitter")
+        require('nvim-treesitter.configs').setup(conf.setup)
+        conf.config()
+      end,
       event = "bufEnter",
   }
 
@@ -68,7 +68,7 @@ return require('packer').startup(function(use)
 
   use {
     "rafamadriz/friendly-snippets",
-    event = "InsertEnter",
+    -- event = "InsertEnter",
   }
 
   use {
@@ -246,6 +246,7 @@ return require('packer').startup(function(use)
   use({
     "folke/noice.nvim",
     event = "VimEnter",
+    after = "nvim-cmp",
     config = function()
       require("config.noice")
     end,

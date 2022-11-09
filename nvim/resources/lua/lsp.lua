@@ -1,6 +1,6 @@
 local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
-local lsp_signature = require('lsp_signature')
+-- local lsp_signature = require('lsp_signature')
 -- local completion = require('completion')
 local lsp = vim.lsp
 
@@ -35,7 +35,6 @@ local function on_attach(client, bufnr)
     local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
     lsp_status.on_attach(client)
-    lsp_signature.on_attach(require("config.signature"), bufnr)
 
     vim.cmd [[augroup gm_lsp_status]]
     vim.cmd [[  autocmd CursorHold,BufEnter <buffer> lua require('lsp-status').update_current_function()]]
@@ -124,9 +123,6 @@ lspSymbol("Hint", "")
 lspSymbol("Warning", "")
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-   border = "single",
-})
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
    border = "single",
 })
 
