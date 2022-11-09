@@ -6,9 +6,9 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
 
-  use { 'dstein64/vim-startuptime',
-      cmd = { "StartupTime" },
-    }
+  -- use { 'dstein64/vim-startuptime',
+  --     cmd = { "StartupTime" },
+  --   }
 
   -- Search
   --[[
@@ -132,9 +132,6 @@ return require('packer').startup(function(use)
   -- use 'navarasu/onedark.nvim'
   use 'B4mbus/oxocarbon-lua.nvim'
 
-  -- indent line
-  use 'Yggdroot/indentLine'
-
   use {
     'levouh/tint.nvim',
     config = function()
@@ -232,6 +229,8 @@ return require('packer').startup(function(use)
     }
     end,
   }
+
+  use 'Yggdroot/indentLine'
 
   -- Comments
   use {
