@@ -20,6 +20,13 @@ return require('packer').startup(function(use)
   }
   --]]
 
+  use {
+    'ggandor/leap.nvim',
+    requires = {
+      'tpope/vim.repeat'
+    },
+    config = function() require('leap').add_default_mappings() end
+  }
   -- use {'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sql.nvim'}
   use {
     "nvim-telescope/telescope.nvim",
@@ -106,6 +113,11 @@ return require('packer').startup(function(use)
     after = "cmp-buffer",
   }
 
+  -- git
+
+  -- gitdiff
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -115,7 +127,7 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- GitMessengeru
+  -- blame popup
   use 'rhysd/git-messenger.vim'
 
   -- MultiCursor
