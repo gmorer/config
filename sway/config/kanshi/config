@@ -1,3 +1,7 @@
+profile new-home-2 {
+	output eDP-1 disable
+	output DP-2 mode 2560x1440@59.951Hz position 0,0
+}
 profile home-perso {
 	output eDP-1 disable
 	output "Unknown Q27G2WG4 0x00002209" mode 2560x1440@143.912Hz position 0,0
@@ -7,9 +11,12 @@ profile alone {
 	output eDP-1 enable mode 3840x2400@59.994Hz position 0,0
 }
 
+profile alone-thinkpad {
+	output eDP-1 enable mode 1920x1200@60.003 position 0,0
+}
+
 profile alone1k {
 	output eDP-1 enable mode 1920x1080@59.934Hz position 0,0
- 
 }
 
 profile work {
@@ -21,4 +28,10 @@ profile work {
 profile work2 {
 	output eDP-1 disable
 	output DP-2 mode 1920x1080@60.000Hz position 0,0
+}
+
+profile new-home {
+	output eDP-1 disable
+	output DP-9 disable
+	output DP-2 mode 2560x1440@59.951Hz position 0,0
 }

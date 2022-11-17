@@ -8,14 +8,17 @@ set $term kitty
 set $menu rofi -show combi
 
 # Systemd integration
-exec "systemctl --user import-environment; systemctl --user start sway-session.target" &
-exec systemd-cat --identifier=sway sway &
+# exec "systemctl --user import-environment; systemctl --user start sway-session.target" &
+# exec systemd-cat --identifier=sway sway &
 
-set $lock /home/guilhem/.local/bin/lock
+set $lock /home/tet/.local/bin/lock
 
-output * bg /home/guilhem/Downloads/wallpaper.png fill
+output * bg /home/tet/Downloads/wallpaper.jpg fill
 
-exec /usr/lib/xdg-desktop-portal-wlr -r &
+# exec /usr/lib/xdg-desktop-portal-wlr -r &
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # exec swayidle -w \
 #          timeout 300 $lock \
@@ -25,7 +28,7 @@ exec /usr/lib/xdg-desktop-portal-wlr -r &
 exec kanshi &
 
 # font fix for flatpak
-exec /usr/libexec/xdg-desktop-portal-gnome -r
+# exec /usr/libexec/xdg-desktop-portal-gnome -r
 
 
 ### Input configuration
@@ -217,6 +220,7 @@ for_window [class="Wine"] floating enable
 for_window [app_id="lutris"] floating enable
 for_window [app_id="floating"] floating enable
 for_window [app_id="pavucontrol"] floating enable, sticky enable, resize set width 650 px height 700px, move position cursor, move down 35
+for_window [app_id="polkit-gnome-authentication-agent-1"] floating enable
 
 #
 # Inputs
@@ -238,8 +242,8 @@ bar {
 # Font, borders, and gaps
 #
 font JetBrainsMono Font 10
-gaps inner 28
-gaps outer -8
+gaps inner 3
+gaps outer 3
 smart_gaps on
 default_border none
 
