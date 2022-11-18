@@ -82,7 +82,7 @@ button:hover {
 #mode,
 #network,
 #pulseaudio,
-#temperature,
+#custom-temperature,
 #tray,
 #window,
 #workspaces {
@@ -111,10 +111,6 @@ button:hover {
     color: #4db5bd;
 }
 
-#temperature {
+#custom-temperature {
     color: lightpink;
-}
-
-#temperature.critical {
-    background: #eb4d4b;
 }

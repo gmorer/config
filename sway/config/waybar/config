@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "wlr/taskbar", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "custom/media", "pulseaudio", "network", "battery"],
+    "modules-right": ["tray", "custom/media", "pulseaudio", "network", "custom/temperature", "battery"],
 
     // Left
     "sway/workspaces": {
@@ -54,37 +54,12 @@
         "format": "{icon}{}",
         "return-type": "json",
         "format-icons": {
-            "Playing": " ",
-            "Paused": " ",
+            "Playing": "  ",
+            "Paused": "  ",
        },
         "max-length":70,
         "exec": "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
         "on-click": "playerctl play-pause",
-    },
-    "battery": {
-            "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
-        "format-icons": ["", "", "", "", ""],
-        "format-time": "{H}h{M}m",
-        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
-        "format-full": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  Charged",
-        "interval": 30,
-        "states": {
-            "warning": 25,
-            "critical": 10
-        },
-        "tooltip": false,
-        /* "states": { */
-        /*     "good": 95, */
-        /*     "warning": 30, */
-        /*     "critical": 15 */
-        /* }, */
-        /* "format": "{capacity}% {icon}", */
-        /* "format-charging": "{capacity}% ", */
-        /* "format-plugged": "{capacity}% ", */
-        /* "format-alt": "{time} {icon}", */
-        /* "format-good": "", // An empty format will hide the module */
-        /* "format-full": "", */
-        /* "format-icons": ["", "", "", "", ""] */
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -106,11 +81,51 @@
         "on-click": "killall pavucontrol || pavucontrol"
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interface": "wlp*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "on-click": ""
+    },
+    "custom/temperature": {
+        "interval": 5,
+        "format": "<span font='Fira Sans, Bold'>🌡</span> {}°C",
+        "exec": "sensors | grep CPU | cut  -d'+' -f2 | cut -d. -f1",
+        "on-click": ""
+    },
+    "custom/cpu_speed": {
+        "interval": 5,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/cpu_speed.sh",
+        "format": "<span font='Fira Sans,Bold'>{icon}</span>  {}",
+        "format-icons": [""],
+        "escape": true,
+        "on-click": "terminator -e htop"
+    },
+    "battery": {
+        "format": "<span font='Fira Sans,Bold'>{icon}</span>  {capacity}% - {time}",
+        "format-icons": ["", "", "", "", ""],
+        "format-time": "{H}h{M}m",
+        "format-charging": "<span font='Fira Sans,Bold</span>  <span font='Fira Sans,Bold'>{icon}</span>  {capacity}% - {time}",
+        "format-full": "<span font='Fira Sans,Bold</span>  <span font='Fira Sans,Bold'>{icon}</span>  Charged",
+        "interval": 30,
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip": false,
+        /* "states": { */
+        /*     "good": 95, */
+        /*     "warning": 30, */
+        /*     "critical": 15 */
+        /* }, */
+        /* "format": "{capacity}% {icon}", */
+        /* "format-charging": "{capacity}% ", */
+        /* "format-plugged": "{capacity}% ", */
+        /* "format-alt": "{time} {icon}", */
+        /* "format-good": "", // An empty format will hide the module */
+        /* "format-full": "", */
+        /* "format-icons": ["", "", "", "", ""] */
     },
 }
