@@ -14,6 +14,8 @@ vim.api.nvim_set_var('VM_maps', {['Find Under'] = '<C-d>', ['Find Subword Under'
 
 vim.api.nvim_set_keymap('t', '<C-`>', '<C-\\><C-n>', dfl_opt)
 vim.api.nvim_set_keymap('t', '<C-w>', '<C-\\><C-n><C-w>', dfl_opt)
+vim.api.nvim_set_keymap('t', '<C-PageUp>', '<C-\\><C-n><C-PageUp>', dfl_opt)
+vim.api.nvim_set_keymap('t', '<C-PageDown>', '<C-\\><C-n><C-PageDown>', dfl_opt)
 
 -- vim.api.nvim_set_keymap('i', '<C-S-C>', '"+y', dfl_opt)
 -- vim.api.nvim_set_keymap('i', '<C-S-V>', '"+p', dfl_opt)
