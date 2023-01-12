@@ -169,16 +169,6 @@ return require('packer').startup(function(use)
     end,
   })
 
-  -- Mind
-  use {
-    'phaazon/mind.nvim',
-    branch = 'master',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require'mind'.setup()
-    end
-  }
-
   -- Tree
   --[[
   use {
@@ -214,6 +204,11 @@ return require('packer').startup(function(use)
     }
   }
 
+  use {
+    "b0o/incline.nvim",
+    config = function () require("config.incline") end,
+  }
+
   -- tabbar
   use {
     'akinsho/bufferline.nvim',
@@ -223,7 +218,7 @@ return require('packer').startup(function(use)
       require("bufferline").setup{
         options = {
           -- modified_icon = '●',
-          always_show_bufferline = true,
+          always_show_bufferline = false,
           mode = 'tabs',
           indicator = {
             style = 'underline',
