@@ -104,11 +104,12 @@
         "on-click": "terminator -e htop"
     },
     "battery": {
-        "format": "<span font='Fira Sans,Bold'>{icon}</span>  {capacity}% - {time}",
+	"bat": "BAT0",
+        "format": "<span font='Fira Sans, Bold'>{icon}</span>  {capacity}% - {time}",
         "format-icons": ["", "", "", "", ""],
         "format-time": "{H}h{M}m",
-        "format-charging": "<span font='Fira Sans,Bold</span>  <span font='Fira Sans,Bold'>{icon}</span>  {capacity}% - {time}",
-        "format-full": "<span font='Fira Sans,Bold</span>  <span font='Fira Sans,Bold'>{icon}</span>  Charged",
+        "format-charging": "<span font='Fira Sans, Bold'>{icon}</span>  {capacity}% - {time}",
+        "format-full": "<span font='Fira Sans, Bold'>{icon}</span>  Charged",
         "interval": 30,
         "states": {
             "warning": 25,

@@ -9,7 +9,7 @@ LOG_FILE="./logs.err"
 rm -rf ${LOG_FILE}
 
 MODULES=`find -maxdepth 1 -type d -name '[^.]*' | sed 's/^..//'`
-COMMANDS=`ls ${MODULES} ~ -1 | grep -v : | grep -v "/"| grep -E \*.sh$ | sed 's/.sh$//' | sort | uniq`
+COMMANDS=`ls ${MODULES} ~ -1 | grep -v : | grep -v "/"| grep -E '(.*).sh$' | sed 's/.sh$//' | sort | uniq`
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
