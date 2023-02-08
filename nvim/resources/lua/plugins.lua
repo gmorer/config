@@ -20,6 +20,10 @@ return require('packer').startup(function(use)
   }
   --]]
 
+  -- Theme
+  -- use 'navarasu/onedark.nvim'
+  use 'nyoom-engineering/oxocarbon.nvim'
+
   use {
     'ggandor/leap.nvim',
     requires = {
@@ -136,10 +140,6 @@ return require('packer').startup(function(use)
   -- Pretty symbols
   use 'kyazdani42/nvim-web-devicons'
 
-  -- Theme
-  -- use 'navarasu/onedark.nvim'
-  use 'B4mbus/oxocarbon-lua.nvim'
-
   use {
     'levouh/tint.nvim',
     config = function()
@@ -226,7 +226,6 @@ return require('packer').startup(function(use)
           offsets = {
             {filetype = "NvimTree", text = "File Explorer", text_align = "left", padding = 1},
             {filetype = "neo-tree", text = "File Explorer", text_align = "left"},
-            {filetype = "mind", text = "mind.nvim", text_align = "center"}
         },
       }
     }
