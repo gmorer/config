@@ -1,4 +1,4 @@
-require('nvim-treesitter.configs').setup({
+return {
   ensure_installed = {
     "lua",
     "vim",
@@ -14,4 +14,4 @@ require('nvim-treesitter.configs').setup({
   indent = {
     enable = true,
   }
-})
+}

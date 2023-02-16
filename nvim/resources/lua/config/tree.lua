@@ -33,10 +33,10 @@ require("nvim-tree").setup({
   }
 })
 --]]
-require("neo-tree").setup({
+return {
   window = {
     mappings = {
       ["<tab>"] = "open",
     },
   },
-})
+}

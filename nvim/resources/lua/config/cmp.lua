@@ -1,9 +1,4 @@
-local cmp = require "cmp"
-
-
-vim.opt.completeopt = "menuone,noselect"
-
-cmp.setup({
+return {
     snippet = {
        expand = function(args)
           require("luasnip").lsp_expand(args.body)
@@ -29,6 +24,7 @@ cmp.setup({
  	},
 	mapping = {
 		['<Tab>'] = function(fallback)
+			local cmp = require("cmp")
 			if cmp.visible() then
 				cmp.select_next_item()
 			else
@@ -36,6 +32,7 @@ cmp.setup({
 			end
 		end,
 		['<S-Tab>'] = function(fallback)
+			local cmp = require("cmp")
 			if cmp.visible() then
 				cmp.select_prev_item()
 			else
@@ -48,5 +45,5 @@ cmp.setup({
        { name = "buffer" },
        { name = "nvim_lua" },
     },
-	preselect = cmp.PreselectMode.None
-})
+    -- preselect = cmp.PreselectMode.None
+}

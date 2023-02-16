@@ -1,6 +1,4 @@
-print("dsd")
-
-require('incline').setup({
+return {
   window = {
     margin = {
       vertical = {
@@ -13,4 +11,4 @@ require('incline').setup({
       vertical = "top",
     },
   },
-})
+}
