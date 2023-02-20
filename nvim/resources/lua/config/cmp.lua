@@ -45,5 +45,5 @@ return {
        { name = "buffer" },
        { name = "nvim_lua" },
     },
-    -- preselect = cmp.PreselectMode.None
+  preselect = "none" -- cmp.PreselectMode.None
 }

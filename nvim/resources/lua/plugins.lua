@@ -14,11 +14,11 @@ return {
     "nvim-telescope/telescope.nvim",
     init = require("config.telescope").init,
     opts = require("config.telescope").opts,
-    after = "nvim-web-devicons"
+    dependencies = "nvim-web-devicons"
   },
   "folke/neodev.nvim",
 
-  { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+  "nvim-telescope/telescope-fzf-native.nvim",
   "nvim-telescope/telescope-media-files.nvim",
   "nvim-telescope/telescope-ui-select.nvim",
 
@@ -29,7 +29,6 @@ return {
   -- lsp stuff
   {
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
       cmd = {"TSInstall", "TSUpdate", "TSInstallInfo"},
       opts = require("config.treesitter"),
       event = "bufEnter",
@@ -136,8 +135,8 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
-      {"arkav/lualine-lsp-progress", opt = false },
-      {"kyazdani42/nvim-web-devicons", opt = true }
+      {"arkav/lualine-lsp-progress" },
+      {"kyazdani42/nvim-web-devicons" }
     }
   },
 
@@ -183,13 +182,13 @@ return {
   {
     "folke/noice.nvim",
     event = "VimEnter",
-    after = "nvim-cmp",
     init = function()
       require("telescope").load_extension("noice")
     end,
     opts = require("config.noice"),
     dependencies = {
       "nvim-telescope/telescope.nvim",
+      "hrsh7th/nvim-cmp",
       "MunifTanjim/nui.nvim",
     }
   }
