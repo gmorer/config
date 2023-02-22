@@ -1,1 +1,0 @@
-A configuration for neo-vim > 0.5
