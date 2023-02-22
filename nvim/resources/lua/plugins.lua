@@ -1,7 +1,44 @@
 return {
   "nvim-lua/plenary.nvim",
 
-  "nyoom-engineering/oxocarbon.nvim",
+  -- "nyoom-engineering/oxocarbon.nvim",
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    opts = {
+      flavour = "mocha",
+      dim_inactive = {
+        enabled = true,
+        shade = "dark",
+        percentage = 0.15,
+      },
+      integrations = {
+        neotree = true,
+        leap = true,
+        gitsigns = true,
+        noice = true,
+        cmp = true,
+        treesitter = true,
+        telescope = true,
+        lsp_trouble = true,
+        native_lsp = {
+          enabled = true,
+          virtual_text = {
+            errors = { "italic" },
+            hints = { "italic" },
+            warnings = { "italic" },
+            information = { "italic" },
+          },
+          underlines = {
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+          },
+        },
+      },
+    },
+  },
 
   {
     "ggandor/leap.nvim",
@@ -23,15 +60,15 @@ return {
   "nvim-telescope/telescope-ui-select.nvim",
 
   -- Completion and linting
-    "neovim/nvim-lspconfig",
-    "nvim-lua/lsp-status.nvim",
+  "neovim/nvim-lspconfig",
+  "nvim-lua/lsp-status.nvim",
 
   -- lsp stuff
   {
-      "nvim-treesitter/nvim-treesitter",
-      cmd = {"TSInstall", "TSUpdate", "TSInstallInfo"},
-      opts = require("config.treesitter"),
-      event = "bufEnter",
+    "nvim-treesitter/nvim-treesitter",
+    cmd = {"TSInstall", "TSUpdate", "TSInstallInfo"},
+    opts = require("config.treesitter"),
+    event = "bufEnter",
   },
 
   {
@@ -82,7 +119,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    -- config = function() require("gitsigns").setup() end
+    config = function() require("gitsigns").setup() end
   },
 
   -- blame popup
@@ -93,11 +130,6 @@ return {
 
   -- Pretty symbols
   "kyazdani42/nvim-web-devicons",
-
-  {
-    "levouh/tint.nvim",
-    -- config = function() require("tint").setup() end
-  },
 
   -- zen mode
 
@@ -121,7 +153,7 @@ return {
   },
 
   {
-  "nvim-neo-tree/neo-tree.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -137,7 +169,8 @@ return {
     dependencies = {
       {"arkav/lualine-lsp-progress" },
       {"kyazdani42/nvim-web-devicons" }
-    }
+    },
+    opts = { options = { theme = "catppuccin" }}
   },
 
   {
@@ -151,16 +184,16 @@ return {
     -- tag = "v2.*",
     dependencies = "kyazdani42/nvim-web-devicons",
     opts = {
-        options = {
-          -- modified_icon = "●",
-          always_show_bufferline = false,
-          mode = "tabs",
-          indicator = {
-            style = "underline",
-          },
-          offsets = {
-            {filetype = "NvimTree", text = "File Explorer", text_align = "left", padding = 1},
-            {filetype = "neo-tree", text = "File Explorer", text_align = "left"},
+      options = {
+        -- modified_icon = "●",
+        always_show_bufferline = false,
+        mode = "tabs",
+        indicator = {
+          style = "underline",
+        },
+        offsets = {
+          {filetype = "NvimTree", text = "File Explorer", text_align = "left", padding = 1},
+          {filetype = "neo-tree", text = "File Explorer", text_align = "left"},
         },
       }
     }
@@ -172,10 +205,10 @@ return {
   {
     "terrortylor/nvim-comment",
     init = function ()
-        require('nvim_comment').setup({
-          create_mappings = false,
-        })
-      end
+      require('nvim_comment').setup({
+        create_mappings = false,
+      })
+    end
   },
 
   -- Command line

@@ -1,10 +1,12 @@
 vim.opt.termguicolors = true
-vim.opt.background = 'dark'
--- vim.o.background = "dark"
+
+vim.o.background = "dark"
 
 -- vim.g.oxocarbon_lua_keep_terminal = true
 -- vim.g.oxocarbon_lua_alternative_telescope = true
-vim.cmd([[colorscheme oxocarbon]])
+
+-- vim.cmd([[colorscheme oxocarbon]])
+vim.cmd([[colorscheme catppuccin]])
 
 vim.opt.list = true
 -- vim.opt.list = false
