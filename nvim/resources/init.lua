@@ -39,3 +39,6 @@ require("config.indent")
 
 -- load Theme
 require("config.theme")
+
+-- Hexedit
+require("binedit")
