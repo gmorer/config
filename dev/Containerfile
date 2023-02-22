@@ -1,0 +1,25 @@
+FROM archlinux
+
+# nvim
+RUN pacman --noconfirm -Syu git neovim lua-language-server bash-language-server ripgrep
+
+# zsh
+RUN pacman --noconfirm -Syu openssh \
+    zsh \
+    zsh-completions \
+    zsh-syntax-highlighting \
+    zsh-autosuggestions \
+    grml-zsh-config \
+    gnupg
+
+# C/C++
+RUN pacman --noconfirm -Syu gcc gdb llvm make ninja cmake
+
+# Go
+RUN pacman --noconfirm -Syu go gopls go-tools
+
+# Js/TS
+RUN pacman --noconfirm -Syu nodejs npm typescript typescript-language-server
+
+COPY ./init.sh /usr/bin/dev_init_env
+RUN chmod +x /usr/bin/dev_init_env

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME="tet_dev"
+HOST_WORKDIR="${HOME}/dev"
+
+if [ -z "$(ls -A ${HOST_WORKDIR})" ]; then
+    # Env has to be initialized
+    echo "First time running, initializing the env..."
+    touch ${HOST_WORKDIR}/.zshrc
+    podman run \
+        --volume=${HOST_WORKDIR}:/workdir:rw \
+        --env=HOME=/workdir \
+        --userns=keep-id \
+        --workdir=/workdir \
+        --rm \
+        -it \
+        ${CONTAINER_NAME} /usr/bin/dev_init_env
+    echo "DONE"
+fi
+
+podman run \
+    --volume=${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}:rbind \
+    --volume=${HOST_WORKDIR}:/workdir:rw \
+    --volume=${HOME}/.gitconfig:/workdir/.gitconfig:rw \
+    --env=SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
+    --env=HOME=/workdir \
+    --userns=keep-id \
+    --workdir=/workdir \
+    --rm \
+    -it \
+    ${CONTAINER_NAME} /usr/bin/zsh
+
