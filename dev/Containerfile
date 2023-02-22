@@ -1,7 +1,7 @@
 FROM archlinux
 
 # nvim
-RUN pacman --noconfirm -Syu git neovim lua-language-server bash-language-server ripgrep wl-copy wl-paste fd
+RUN pacman --noconfirm -Syu git neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
 
 # zsh
 RUN pacman --noconfirm -Syu openssh \
