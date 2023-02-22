@@ -12,6 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- load the bindings
+require("config.bindings")
+
 require("lazy").setup("plugins")
 
 if require "first_load"() then
@@ -33,9 +36,6 @@ require("statusline")
 
 -- load the indent conf
 require("config.indent")
-
--- load the bindings
-require("config.bindings")
 
 -- load Theme
 require("config.theme")
