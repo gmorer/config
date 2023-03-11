@@ -1,7 +1,7 @@
 FROM archlinux
 
 # nvim
-RUN pacman --noconfirm -Syu git neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
+RUN pacman --noconfirm -Syu sway git neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
 
 # zsh
 RUN pacman --noconfirm -Syu openssh \
@@ -23,3 +23,5 @@ RUN pacman --noconfirm -Syu nodejs npm typescript typescript-language-server
 
 COPY ./init.sh /usr/bin/dev_init_env
 RUN chmod +x /usr/bin/dev_init_env
+
+RUN pacman --noconfirm -S libxcursor libxrandr libxi

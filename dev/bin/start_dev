@@ -2,6 +2,7 @@
 
 CONTAINER_NAME="tet_dev"
 HOST_WORKDIR="${HOME}/dev"
+GUEST_XDG_RUNTIME_DIR="/workdir/.xdg_runtime_dir"
 
 if [ -z "$(ls -A ${HOST_WORKDIR})" ]; then
     # Env has to be initialized
@@ -20,10 +21,17 @@ fi
 
 podman run \
     --volume=${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}:rbind \
+    --volume=${SWAYSOCK}:${GUEST_XDG_RUNTIME_DIR}/sway.sock:rbind \
+    --volume=${XDG_RUNTIME_DIR}/wayland-1:${GUEST_XDG_RUNTIME_DIR}/wayland-1:rbind \
     --volume=${HOST_WORKDIR}:/workdir:rw \
     --volume=${HOME}/.gitconfig:/workdir/.gitconfig:rw \
     --env=SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
     --env=HOME=/workdir \
+    --env=SWAYSOCK=${GUEST_XDG_RUNTIME_DIR}/sway.sock\
+    --env=DISPLAY=${DISPLAY}\
+    --env=WAYLAND_DISPLAY=${WAYLAND_DISPLAY}\
+    --env=XDG_SESSION_TYPE=${XDG_SESSION_TYPE} \
+    --env=XDG_RUNTIME_DIR=${GUEST_XDG_RUNTIME_DIR} \
     --userns=keep-id \
     --workdir=/workdir \
     --rm \
