@@ -90,18 +90,9 @@
     },
     "custom/temperature": {
         "interval": 5,
-        "format": "<span font='Fira Sans, Bold'>🌡</span> {}°C",
+        "format": "<span >🌡</span> {}°C",
         "exec": "sensors | grep CPU | cut  -d'+' -f2 | cut -d. -f1",
         "on-click": ""
-    },
-    "custom/cpu_speed": {
-        "interval": 5,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/cpu_speed.sh",
-        "format": "<span font='Fira Sans,Bold'>{icon}</span>  {}",
-        "format-icons": [""],
-        "escape": true,
-        "on-click": "terminator -e htop"
     },
     "battery": {
 	"bat": "BAT0",

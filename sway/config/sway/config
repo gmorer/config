@@ -11,14 +11,16 @@ set $menu rofi -show combi
 # exec "systemctl --user import-environment; systemctl --user start sway-session.target" &
 # exec systemd-cat --identifier=sway sway &
 
-set $lock /home/tet/.local/bin/lock
+set $lock /home/guilhem/.local/bin/lock
 
-output * bg /home/tet/Downloads/wallpaper.jpg fill
+output * bg /home/guilhem/Downloads/wallpaper.png fill
 
 # exec /usr/lib/xdg-desktop-portal-wlr -r &
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd DSPLAY XAUTHORITY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+exec gnome-keyring-daemon --start --components=secrets
 
 # exec swayidle -w \
 #          timeout 300 $lock \

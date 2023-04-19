@@ -19,10 +19,15 @@ profile alone1k {
 	output eDP-1 enable mode 1920x1080@59.934Hz position 0,0
 }
 
+profile work-home {
+	output eDP-1 disable
+	output "AOC Q27G2WG4 0x00002209" mode 2560x1440@143.912Hz position 0,0
+}
+
 profile work {
 	output eDP-1 disable
 	output "Dell Inc. DELL U2419HC 1H8JSS2" position 0,360 mode 1920x1080@60.00
-	output "Unknown Q27P2G5 SFHMCHA000406" mode 2560x1440@74.994Hz position 1920,0
+	output "AOC Q27P2G5 SFHMCHA000413" mode 2560x1440@74.994Hz position 1920,0
 }
 
 profile work2 {
