@@ -32,6 +32,7 @@ podman run \
     --env=WAYLAND_DISPLAY=${WAYLAND_DISPLAY}\
     --env=XDG_SESSION_TYPE=${XDG_SESSION_TYPE} \
     --env=XDG_RUNTIME_DIR=${GUEST_XDG_RUNTIME_DIR} \
+    --env=EDITOR=nvim \
     --userns=keep-id \
     --workdir=/workdir \
     --rm \
