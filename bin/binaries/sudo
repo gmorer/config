@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+systemd-run --uid=root --pty --quiet $@

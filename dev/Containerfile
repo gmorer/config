@@ -24,4 +24,4 @@ RUN pacman --noconfirm -Syu nodejs npm typescript typescript-language-server
 COPY ./init.sh /usr/bin/dev_init_env
 RUN chmod +x /usr/bin/dev_init_env
 
-RUN pacman --noconfirm -S libxcursor libxrandr libxi pkgconf
+RUN pacman --noconfirm -S libxcursor libxrandr libxi pkgconf unzip
