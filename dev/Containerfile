@@ -1,7 +1,13 @@
 FROM archlinux
 
+COPY ./init.sh /usr/bin/dev_init_env
+RUN chmod +x /usr/bin/dev_init_env
+
+RUN pacman --noconfirm -Syu sudo base-devel git
+
+
 # nvim
-RUN pacman --noconfirm -Syu sway git neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
+RUN pacman --noconfirm -Syu sway neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
 
 # zsh
 RUN pacman --noconfirm -Syu openssh \
@@ -10,7 +16,8 @@ RUN pacman --noconfirm -Syu openssh \
     zsh-syntax-highlighting \
     zsh-autosuggestions \
     grml-zsh-config \
-    gnupg
+    gnupg \
+    zellij
 
 # C/C++
 RUN pacman --noconfirm -Syu gcc gdb llvm make ninja cmake
@@ -21,7 +28,9 @@ RUN pacman --noconfirm -Syu go gopls go-tools
 # Js/TS
 RUN pacman --noconfirm -Syu nodejs npm typescript typescript-language-server
 
-COPY ./init.sh /usr/bin/dev_init_env
-RUN chmod +x /usr/bin/dev_init_env
-
+# Dev dependencies
 RUN pacman --noconfirm -S libxcursor libxrandr libxi pkgconf unzip
+
+
+# zig 
+run pacman --noconfirm -Syu wget
