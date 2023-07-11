@@ -16,3 +16,4 @@ ln -fs ${HOME}/Sync/metadata/pass ${HOME}/.password-store
 #	gpgconf --launch gpg-agent
 #	 GPG_TTY=$(tty)
 #fi
+# alias yubikeyrestart='gpg-connect-agent killagent /bye && gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --card-status'
