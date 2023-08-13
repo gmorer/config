@@ -11,7 +11,7 @@ set $menu rofi -show combi
 # exec "systemctl --user import-environment; systemctl --user start sway-session.target" &
 # exec systemd-cat --identifier=sway sway &
 
-set $lock /home/guilhem/.local/bin/lock
+set $lock ~/.local/bin/lock
 
 output * bg ~/.config/sway/bg.jpg fill
 
@@ -27,7 +27,7 @@ exec gnome-keyring-daemon --start --components=secrets
 #          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
 #          before-sleep $lock
 
-exec kanshi &
+# exec kanshi &
 
 # font fix for flatpak
 # exec /usr/libexec/xdg-desktop-portal-gnome -r
