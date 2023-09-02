@@ -25,6 +25,7 @@ podman run \
     --volume=${XDG_RUNTIME_DIR}/wayland-1:${GUEST_XDG_RUNTIME_DIR}/wayland-1:rbind \
     --volume=${HOST_WORKDIR}:/workdir:rw \
     --volume=${HOME}/.gitconfig:/workdir/.gitconfig:rw \
+    --device /dev/dri/renderD128:/dev/dri/renderD128 \
     --env=SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
     --env=HOME=/workdir \
     --env=SWAYSOCK=${GUEST_XDG_RUNTIME_DIR}/sway.sock\

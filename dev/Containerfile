@@ -3,8 +3,7 @@ FROM archlinux
 COPY ./init.sh /usr/bin/dev_init_env
 RUN chmod +x /usr/bin/dev_init_env
 
-RUN pacman --noconfirm -Syu sudo base-devel git
-
+RUN pacman --noconfirm -Syu sudo base-devel git mold
 
 # nvim
 RUN pacman --noconfirm -Syu sway neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
@@ -33,4 +32,11 @@ RUN pacman --noconfirm -S libxcursor libxrandr libxi pkgconf unzip
 
 
 # zig 
-run pacman --noconfirm -Syu wget
+run pacman --noconfirm -Syu wget qemu-base
+
+run pacman --noconfirm -Syu clang
+
+# bevy
+run pacman --noconfirm -Syu libx11 alsa-lib
+
+run pacman --noconfirm -Syu opencl-headers opencl-rusticl-mesa ocl-icd
