@@ -5,3 +5,4 @@ bin/binaries/lightcord
 nvim/resources/plugin/packer_compiled.vim
 nvim/resources/plugin/packer_compiled.lua
 bin/binaries/tidal-hifi
+helix/resources/grammars
