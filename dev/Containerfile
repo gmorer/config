@@ -6,7 +6,7 @@ RUN chmod +x /usr/bin/dev_init_env
 RUN pacman --noconfirm -Syu sudo base-devel git mold
 
 # nvim
-RUN pacman --noconfirm -Syu sway neovim lua-language-server bash-language-server ripgrep fd wl-clipboard
+RUN pacman --noconfirm -Syu sway neovim lua-language-server bash-language-server ripgrep fd wl-clipboard helix man
 
 # zsh
 RUN pacman --noconfirm -Syu openssh \
