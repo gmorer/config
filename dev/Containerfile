@@ -10,10 +10,7 @@ RUN pacman --noconfirm -Syu sway neovim lua-language-server bash-language-server
 
 # zsh
 RUN pacman --noconfirm -Syu openssh \
-    zsh \
-    zsh-completions \
-    zsh-syntax-highlighting \
-    zsh-autosuggestions \
+    fish \
     grml-zsh-config \
     gnupg \
     zellij
@@ -39,4 +36,4 @@ run pacman --noconfirm -Syu clang
 # bevy
 run pacman --noconfirm -Syu libx11 alsa-lib
 
-run pacman --noconfirm -Syu opencl-headers opencl-rusticl-mesa ocl-icd
+run pacman --noconfirm -Syu opencl-headers opencl-rusticl-mesa ocl-icd gitui btop

@@ -38,5 +38,5 @@ podman run \
     --workdir=/workdir \
     --rm \
     -it \
-    ${CONTAINER_NAME} /usr/bin/zsh
+    ${CONTAINER_NAME} /usr/bin/fish
 
