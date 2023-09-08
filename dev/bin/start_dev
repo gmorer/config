@@ -28,12 +28,12 @@ podman run \
     --device /dev/dri/renderD128:/dev/dri/renderD128 \
     --env=SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
     --env=HOME=/workdir \
-    --env=SWAYSOCK=${GUEST_XDG_RUNTIME_DIR}/sway.sock\
-    --env=DISPLAY=${DISPLAY}\
-    --env=WAYLAND_DISPLAY=${WAYLAND_DISPLAY}\
+    --env=SWAYSOCK=${GUEST_XDG_RUNTIME_DIR}/sway.sock \
+    --env=DISPLAY=${DISPLAY} \
+    --env=WAYLAND_DISPLAY=${WAYLAND_DISPLAY} \
     --env=XDG_SESSION_TYPE=${XDG_SESSION_TYPE} \
     --env=XDG_RUNTIME_DIR=${GUEST_XDG_RUNTIME_DIR} \
-    --env=EDITOR=nvim \
+    --env=EDITOR=helix \
     --userns=keep-id \
     --workdir=/workdir \
     --rm \
