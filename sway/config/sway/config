@@ -15,12 +15,8 @@ set $lock ~/.local/bin/lock
 
 output * bg ~/.config/sway/bg.jpg fill
 
-# exec /usr/lib/xdg-desktop-portal-wlr -r &
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd DSPLAY XAUTHORITY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
-exec gnome-keyring-daemon --start --components=secrets
 
 # exec swayidle -w \
 #          timeout 300 $lock \

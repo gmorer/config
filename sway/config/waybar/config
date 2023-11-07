@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "wlr/taskbar", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "custom/media", "pulseaudio", "network", "custom/temperature", "battery"],
+    "modules-right": ["tray", "bluetooth", "custom/media", "pulseaudio", "network", "custom/temperature", "battery"],
 
     // Left
     "sway/workspaces": {
@@ -60,6 +60,21 @@
         "max-length":70,
         "exec": "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
         "on-click": "playerctl play-pause",
+    },
+    "bluetooth": {
+        "format": "{icon} []",
+        "format-off": "{icon}",
+        "format-connected": "{icon} {num_connections}",
+	"on-click": "toggle_bluetooth",
+        "interval": 30,
+        "format-icons": {
+            "enabled": "",
+            "disabled": ""
+        },
+        "tooltip-format": "{status}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
