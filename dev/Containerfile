@@ -13,7 +13,8 @@ RUN pacman --noconfirm -Syu openssh \
     fish \
     grml-zsh-config \
     gnupg \
-    zellij
+    zellij \
+    git-delta
 
 # C/C++
 RUN pacman --noconfirm -Syu gcc gdb llvm make ninja cmake
@@ -37,3 +38,5 @@ run pacman --noconfirm -Syu clang
 run pacman --noconfirm -Syu libx11 alsa-lib
 
 run pacman --noconfirm -Syu opencl-headers opencl-rusticl-mesa ocl-icd gitui btop
+
+run pacman --noconfirm -Syu meson wayland-protocols libpipewire protobuf
