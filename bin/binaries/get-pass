@@ -20,11 +20,11 @@ content=$(pass show "$password")
 login=$(echo "$content" | grep -e '^login: ' | cut -c 8-)
 if [ ! -z "$login" ]; then
 	notify-send -r "$notif_id" --expire-time=100000 "Username copied" "$login"
-	wl-copy -o "$login"
+	wl-copy "$login"
 	sleep 2
 fi
 notify-send -r "$notif_id" --expire-time=100000 "Password copied!" "****"
-wl-copy -o "$(echo "$content" | head -n 1)"
+wl-copy "$(echo "$content" | head -n 1)"
 sleep 5
 notify-send -r "$notif_id" --expire-time=2000 "Password cleared!"
 wl-copy -c
