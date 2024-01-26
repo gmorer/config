@@ -4,7 +4,6 @@
     "modules-left": ["sway/workspaces", "wlr/taskbar", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
     "modules-right": ["tray", "bluetooth", "custom/media", "pulseaudio", "network", "custom/temperature", "battery"],
-
     // Left
     "sway/workspaces": {
         "disable-scroll": true,
